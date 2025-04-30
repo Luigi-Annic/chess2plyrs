@@ -67,7 +67,7 @@ check_occupied_tile <- function(m0, initialposition, board = game$board) {
 check_pawn_capture <- function(initialposition, board = game$board, turn = game$turn) {
   if (turn == 1) pawnmoves <- whitepawns else pawnmoves <- blackpawns
 
-  capturecandidates <- as.character(na.omit(pawnmoves[c(3,4), initialposition]))
+  capturecandidates <- as.character(stats::na.omit(pawnmoves[c(3,4), initialposition]))
   c1 <- capturecandidates
 
   for (tile in capturecandidates) {
@@ -108,20 +108,20 @@ defmoves <- function(piece, initialposition, turn = 1) {
 
   # King move
   if ("k" %in% piece$movedirection) {
-    m0 <- as.character(na.omit(neigh[, initialposition]))
+    m0 <- as.character(stats::na.omit(neigh[, initialposition]))
     moves0 <- check_occupied_tile(m0, initialposition)
   }
 
   # Knight move
   if ("n" %in% piece$movedirection) {
-    m0 <- as.character(na.omit(nighty[, initialposition]))
+    m0 <- as.character(stats::na.omit(nighty[, initialposition]))
     moves0 <- check_occupied_tile(m0, initialposition)
   }
 
   # Pawn move
   if ("p" %in% piece$movedirection) {
     if (turn == 1) pawnmoves <- whitepawns else pawnmoves <- blackpawns
-    m0moves <- as.character(na.omit(pawnmoves[c(1,2), initialposition]))
+    m0moves <- as.character(stats::na.omit(pawnmoves[c(1,2), initialposition]))
     moves0a <- check_occupied_tile(m0moves, initialposition)
 
     c1 <- check_pawn_capture(initialposition)

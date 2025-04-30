@@ -4,7 +4,7 @@
 \name{chess2plyrs-package}
 \alias{chess2plyrs}
 \alias{chess2plyrs-package}
-\title{chess2plyrs: What the Package Does (Title Case)}
+\title{chess2plyrs: Chess player in base R}
 \description{
 More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
 }

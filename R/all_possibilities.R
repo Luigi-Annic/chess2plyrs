@@ -78,7 +78,7 @@ all_possibilities <- function(currentboard = game$board) {
 
 
     keys <- unique(c(names(escapes), names(eaters), names(parries)))
-    legalmoves[[myself]] <- as.list(setNames(mapply(c, escapes[keys], eaters[keys], parries[keys]), keys))
+    legalmoves[[myself]] <- as.list(stats::setNames(mapply(c, escapes[keys], eaters[keys], parries[keys]), keys))
   }
   return(legalmoves)
 }
