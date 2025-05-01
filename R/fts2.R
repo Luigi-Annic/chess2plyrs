@@ -7,8 +7,13 @@ kingcheck <- function(currentboard = game$board, turn = game$turn, legalmoves){
 
   mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
 
+  enemypawns <- tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
+
+  pcol <- if (enemy == "w") whitepawns else blackpawns
+
   for (j in names(enemy_moves)) {
-    if (mykingposition %in% enemy_moves[[j]]) {
+    if ((substr(j,1,1) != "p" & mykingposition %in% enemy_moves[[j]]) |
+        (substr(j,1,1) == "p" & mykingposition %in% pcol[3:4, substr(j,4,5)])) {
       checkinglines[[j]] <- enemy_moves[[j]]
     }
   }
@@ -65,13 +70,15 @@ escapecheck <- function(currentboard = game$board, turn = game$turn, legalmoves)
 
   myself <- ifelse(turn == 1, "w", "b")
   mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
-  enemy <- ifelse(game$turn == 1, "b", "w")
+  #enemy <- ifelse(game$turn == 1, "b", "w")
 
-  enemy_moves = legalmoves[[enemy]]
+  #enemy_moves = legalmoves[[enemy]]
 
-  available_squares <- defmoves(King, initialposition = mykingposition, turn)
+  #available_squares <- defmoves(King, initialposition = mykingposition, turn)
 
-  escapes[[paste0("K", myself, "_", mykingposition)]] <-subset(available_squares, !available_squares %in% unique(Reduce(c, enemy_moves)))
+  #escapes[[paste0("K", myself, "_", mykingposition)]] <-subset(available_squares, !available_squares %in% unique(Reduce(c, enemy_moves)))
+
+  escapes[[paste0("K", myself, "_", mykingposition)]] <- as.character(legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]])
 
   return(escapes)
 }

@@ -179,22 +179,35 @@ game <- make_move4(Pawn, "d7", "d5")
 game <- make_move4(Pawn, "e4", "e5")
 game <- make_move4(Pawn, "f7", "f5")
 
-game$history[length(game$history)]
+all_possibilities()[["w"]][["pw_e5"]] # en passant is an option now
+#game <- make_move4(Pawn, "e5", "f6")
 
+game <- make_move4(Pawn, "a2", "a4")
+game <- make_move4(Pawn, "b7", "b5")
 
-if (grepl(paste0("^p", "[a-h]", ifelse(turn == 1,"7", "2"), "-", "[a-h]", ifelse(turn == 1,"5", "4")),
-          game$history[length(game$history)])) {
-  plt <- substr(game$history[length(game$history)],2,2)
-  adjacent1 <- letters[which(letters == plt) -1]
-  adjacent2 <- letters[which(letters == plt) +1]
+all_possibilities()[["w"]][["pw_e5"]] # not anymore
 
-  if (game$board[which(tilenames == paste0(adjacent1, ifelse(turn == 1,"5", "4")))] == paste0("p", myself))
-  {## Add en passant as a vaible move for that pawn
-  }
+####
 
-  if (game$board[which(tilenames == paste0(adjacent2, ifelse(turn == 1,"5", "4")))] == paste0("p", myself))
-  {## Add en passant as a vaible move for that pawn
-  }
+game <- newgame()
 
+game <- make_move4(Pawn, "e2", "e4")
+game <- make_move4(Pawn, "e7", "e6")
 
-}
+game <- make_move4(Pawn, "d2", "d4")
+game <- make_move4(Pawn, "d7", "d5")
+
+game <- make_move4(Pawn, "e4", "e5")
+game <- make_move4(King, "e8", "d7")
+
+game <- make_move4(King, "e1", "e2")
+game <- make_move4(Knight, "b8", "c6")
+
+game <- make_move4(King, "e2", "f3")
+game <- make_move4(Pawn, "g7", "g5")
+all_possibilities()[["w"]][["Kw_f3"]]
+
+game <- make_move4(King, "f3", "g4")
+game <- make_move4(Pawn, "h7", "h5")
+
+all_possibilities()[["w"]][["Kw_g4"]]

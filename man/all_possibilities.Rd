@@ -15,3 +15,8 @@ all chess possiblities
 \description{
 finds all legal moves
 }
+\examples{
+game <- newgame()
+all_possibilities()
+
+}
