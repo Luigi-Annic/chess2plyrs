@@ -23,14 +23,14 @@ enemy_attacks <- function(currentboard = game$board, turn = game$turn) {
 
   for (j in (1 : length(game$board))) {
     if (substr(game$board[j],2,2 ) == enemy) {
-      pl <- unlist(strsplit(game$board[j], ""))[1]
+      piece <- unlist(strsplit(game$board[j], ""))[1]
 
-      if (pl == "K") piece <- King
-      if (pl == "Q") piece <- Queen
-      if (pl == "R") piece <- Rook
-      if (pl == "B") piece <- Bishop
-      if (pl == "N") piece <- Knight
-      if (pl == "p") piece <- Pawn
+      #if (pl == "K") piece <- King
+      #if (pl == "Q") piece <- Queen
+      #if (pl == "R") piece <- Rook
+      #if (pl == "B") piece <- Bishop
+      #if (pl == "N") piece <- Knight
+      #if (pl == "p") piece <- Pawn
 
       turn <- ifelse(unlist(strsplit(game$board[j], ""))[2] == "w", 1, -1)
       mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turn, msf_chckobs = FALSE)

@@ -97,7 +97,7 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
   moves0 <- c()
 
   # Rook and Queen move
-  if ("l" %in% piece$movedirection) {
+  if (piece %in% c("R", "Q")) {
     for (l in names(chess2plyrs::chesstools$alltravs)) {
       if (initialposition %in% chess2plyrs::chesstools$alltravs[[l]]){
         m0 <- chess2plyrs::chesstools$alltravs[[l]]
@@ -108,7 +108,7 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
   }
 
   # Bishop and Queen move
-  if ("d" %in% piece$movedirection) {
+  if (piece %in% c("B", "Q")) {
     for (d in names(chess2plyrs::chesstools$alldiags)) {
       if (initialposition %in% chess2plyrs::chesstools$alldiags[[d]]){
         m0 <- chess2plyrs::chesstools$alldiags[[d]]
@@ -119,20 +119,20 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
   }
 
   # King move
-  if ("k" %in% piece$movedirection) {
+  if (piece == "K") {
     m0 <- as.character(stats::na.omit(chess2plyrs::chesstools$neigh[, initialposition]))
 
     if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(m0, initialposition) else moves <- m0
   }
 
   # Knight move
-  if ("n" %in% piece$movedirection) {
+  if (piece == "N") {
     m0 <- as.character(stats::na.omit(chess2plyrs::chesstools$nighty[, initialposition]))
     if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(m0, initialposition) else moves0 <- m0
   }
 
   # Pawn move
-  if ("p" %in% piece$movedirection) {
+  if (piece == "p") {
     if (turn == 1) pawnmoves <- chess2plyrs::chesstools$whitepawns else pawnmoves <- chess2plyrs::chesstools$blackpawns
 
     if (msf_chckobs == TRUE) {
