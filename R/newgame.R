@@ -7,7 +7,7 @@
 
 
 newgame <- function(){
-  list(board = chess2plyrs::init,
+  list(board = chess2plyrs::chesstools$init,
        turn = 1,
        history = c())
 }

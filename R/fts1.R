@@ -12,7 +12,7 @@ check_obstacles <- function(m0, initialposition, board = game$board, myself_move
   occupied_tiles <- c()
   tile_index <- c()
   for (tile in m0){
-    if (tile != initialposition & board[which(tilenames == tile)] != "") {
+    if (tile != initialposition & board[which(chess2plyrs::chesstools$tilenames == tile)] != "") {
       occupied_tiles <- c(occupied_tiles, tile)
       tile_index <- c(tile_index, unlist(strsplit(tile, ""))[2])
     }
@@ -44,12 +44,12 @@ check_obstacles <- function(m0, initialposition, board = game$board, myself_move
     # remove tiles with pieces of the same colour if these are the great_tile and small_tile
     if (myself_movement == TRUE) {
 
-    if (unlist(strsplit(board[which(tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(tilenames==great_tile)], ""))[2] &
-        board[which(tilenames==great_tile)] != "") {
+    if (unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==great_tile)], ""))[2] &
+        board[which(chess2plyrs::chesstools$tilenames==great_tile)] != "") {
       m1 <- m1[! m1 ==great_tile]
     }
-    if (unlist(strsplit(board[which(tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(tilenames==small_tile)], ""))[2] &
-        board[which(tilenames==small_tile)] != "") {
+    if (unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==small_tile)], ""))[2] &
+        board[which(chess2plyrs::chesstools$tilenames==small_tile)] != "") {
       m1 <- m1[! m1 ==small_tile]
     }
     }
@@ -67,8 +67,8 @@ check_obstacles <- function(m0, initialposition, board = game$board, myself_move
 check_occupied_tile <- function(m0, initialposition, board = game$board) {
   m1 <- as.character(m0)
   for (tile in m0) {
-    if (unlist(strsplit(board[which(tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(tilenames==tile)], ""))[2] &
-        board[which(tilenames==tile)] != "") {
+    if (unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==tile)], ""))[2] &
+        board[which(chess2plyrs::chesstools$tilenames==tile)] != "") {
       m1 <- m1[! m1 == tile]
     }
   }
@@ -77,14 +77,14 @@ check_occupied_tile <- function(m0, initialposition, board = game$board) {
 
 # Allow for pawn capture in diagonal if enemy piece stands there
 check_pawn_capture <- function(initialposition, board = game$board, turn = game$turn) {
-  if (turn == 1) pawnmoves <- whitepawns else pawnmoves <- blackpawns
+  if (turn == 1) pawnmoves <- chess2plyrs::chesstools$whitepawns else pawnmoves <- chess2plyrs::chesstools$blackpawns
 
   capturecandidates <- as.character(stats::na.omit(pawnmoves[c(3,4), initialposition]))
   c1 <- capturecandidates
 
   for (tile in capturecandidates) {
-    if (unlist(strsplit(board[which(tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(tilenames==tile)], ""))[2] |
-        board[which(tilenames==tile)] == "") {
+    if (unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(chess2plyrs::chesstools$tilenames==tile)], ""))[2] |
+        board[which(chess2plyrs::chesstools$tilenames==tile)] == "") {
       c1 <- c1[!c1 == tile]
     }
   }
@@ -98,9 +98,9 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
 
   # Rook and Queen move
   if ("l" %in% piece$movedirection) {
-    for (l in names(alltravs)) {
-      if (initialposition %in% alltravs[[l]]){
-        m0 <- alltravs[[l]]
+    for (l in names(chess2plyrs::chesstools$alltravs)) {
+      if (initialposition %in% chess2plyrs::chesstools$alltravs[[l]]){
+        m0 <- chess2plyrs::chesstools$alltravs[[l]]
         m1 <- check_obstacles(m0, initialposition, myself_movement = msf_chckobs)
         moves0 <- c(moves0, m1)
       }
@@ -109,9 +109,9 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
 
   # Bishop and Queen move
   if ("d" %in% piece$movedirection) {
-    for (d in names(alldiags)) {
-      if (initialposition %in% alldiags[[d]]){
-        m0 <- alldiags[[d]]
+    for (d in names(chess2plyrs::chesstools$alldiags)) {
+      if (initialposition %in% chess2plyrs::chesstools$alldiags[[d]]){
+        m0 <- chess2plyrs::chesstools$alldiags[[d]]
         m1 <- check_obstacles(m0, initialposition, myself_movement = msf_chckobs)
         moves0 <- c(moves0, m1)
       }
@@ -120,20 +120,20 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
 
   # King move
   if ("k" %in% piece$movedirection) {
-    m0 <- as.character(stats::na.omit(neigh[, initialposition]))
+    m0 <- as.character(stats::na.omit(chess2plyrs::chesstools$neigh[, initialposition]))
 
     if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(m0, initialposition) else moves <- m0
   }
 
   # Knight move
   if ("n" %in% piece$movedirection) {
-    m0 <- as.character(stats::na.omit(nighty[, initialposition]))
+    m0 <- as.character(stats::na.omit(chess2plyrs::chesstools$nighty[, initialposition]))
     if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(m0, initialposition) else moves0 <- m0
   }
 
   # Pawn move
   if ("p" %in% piece$movedirection) {
-    if (turn == 1) pawnmoves <- whitepawns else pawnmoves <- blackpawns
+    if (turn == 1) pawnmoves <- chess2plyrs::chesstools$whitepawns else pawnmoves <- chess2plyrs::chesstools$blackpawns
 
     if (msf_chckobs == TRUE) {
     m0moves <- as.character(stats::na.omit(pawnmoves[c(1,2), initialposition]))

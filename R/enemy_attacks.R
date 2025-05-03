@@ -33,9 +33,9 @@ enemy_attacks <- function(currentboard = game$board, turn = game$turn) {
       if (pl == "p") piece <- Pawn
 
       turn <- ifelse(unlist(strsplit(game$board[j], ""))[2] == "w", 1, -1)
-      mv0 <- defmoves(piece, initialposition = tilenames[j], turn, msf_chckobs = FALSE)
+      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turn, msf_chckobs = FALSE)
 
-      enemymvs[[unlist(strsplit(game$board[j], ""))[2]]][[paste0(game$board[j], "_", tilenames[j])]] <- mv0
+      enemymvs[[unlist(strsplit(game$board[j], ""))[2]]][[paste0(game$board[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
     }
   }
 

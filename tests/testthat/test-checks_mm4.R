@@ -122,6 +122,10 @@ game <- make_move4(Bishop, "c8", "f5") # The program spots that this move is not
 game <- make_move4(Knight, "b8", "c6")
 game <- make_move4(Queen, "d1", "e2")
 
+game <- make_move4(Pawn, "e7", "e6")
+game <- make_move4(Pawn, "e4", "d5")
+
+
 game
 
 ####

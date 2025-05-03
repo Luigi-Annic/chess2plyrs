@@ -5,11 +5,11 @@ kingcheck <- function(currentboard = game$board, turn = game$turn, legalmoves){
   enemy <- ifelse(game$turn == 1, "b", "w")
   enemy_moves = legalmoves[[enemy]]
 
-  mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
+  mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
 
-  enemypawns <- tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
+  enemypawns <- chess2plyrs::chesstools$tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
 
-  pcol <- if (enemy == "w") whitepawns else blackpawns
+  pcol <- if (enemy == "w") chess2plyrs::chesstools$whitepawns else chess2plyrs::chesstools$blackpawns
 
   for (j in names(enemy_moves)) {
     if ((substr(j,1,1) != "p" & mykingposition %in% enemy_moves[[j]]) |
@@ -28,20 +28,20 @@ parrycheck <- function(currentboard = game$board, turn = game$turn,  legalmoves)
 
   myself <- ifelse(turn == 1, "w", "b")
   mymoves =legalmoves[[myself]]
-  mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
+  mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
 
   checking_item <- names(kingcheck(legalmoves = legalmoves))
   checking_tile <- substr(checking_item, 4,5)
 
   if (substr(checking_item,1,1) %in% c("B", "Q", "R") & length(checking_item) == 1) {
     # diagonals
-    for (j in 1 : length(alldiags)) {
-      if (checking_tile %in% alldiags[[j]] & mykingposition %in% alldiags[[j]]) checkline <- alldiags[[j]]
+    for (j in 1 : length(chess2plyrs::chesstools$alldiags)) {
+      if (checking_tile %in% chess2plyrs::chesstools$alldiags[[j]] & mykingposition %in% chess2plyrs::chesstools$alldiags[[j]]) checkline <- chess2plyrs::chesstools$alldiags[[j]]
     }
 
     # rows/columns
-    for (j in 1 : length(alltravs)) {
-      if (checking_tile %in% alltravs[[j]] & mykingposition %in% alltravs[[j]]) checkline <- alltravs[[j]]
+    for (j in 1 : length(chess2plyrs::chesstools$alltravs)) {
+      if (checking_tile %in% chess2plyrs::chesstools$alltravs[[j]] & mykingposition %in% chess2plyrs::chesstools$alltravs[[j]]) checkline <- chess2plyrs::chesstools$alltravs[[j]]
     }
 
     # eliminiamo caselle esterne alle caselle di attacco e del re, e la casella del re (in cui ovviamente non
@@ -72,7 +72,7 @@ escapecheck <- function(currentboard = game$board, turn = game$turn, legalmoves)
   escapes <- list()
 
   myself <- ifelse(turn == 1, "w", "b")
-  mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
+  mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
   #enemy <- ifelse(game$turn == 1, "b", "w")
 
   #enemy_moves = legalmoves[[enemy]]
@@ -118,17 +118,17 @@ pinned_piece2 <- function(currentboard = game$board, turn = game$turn, legalmove
   checkinglines <- list()
   myself <- ifelse(turn == 1, "w", "b")
   enemy <- ifelse(game$turn == 1, "b", "w")
-  mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
+  mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
   #mymoves <- all_possibilities()[[myself]] # this will be the modified object, excluding unplayable moves due to pins
   mymoves <- legalmoves[[myself]]
   potential_checklines0 <- list()
 
   x <- 1
   # rows/columns
-  for (j in 1 : length(alltravs)) {
-    if (mykingposition %in% alltravs[[j]]) {
+  for (j in 1 : length(chess2plyrs::chesstools$alltravs)) {
+    if (mykingposition %in% chess2plyrs::chesstools$alltravs[[j]]) {
 
-      full_checklines <- alltravs[[j]]
+      full_checklines <- chess2plyrs::chesstools$alltravs[[j]]
       potential_checklines0[["trav"]][[x]] <- full_checklines[1:which(full_checklines == mykingposition)]
       potential_checklines0[["trav"]][[x+1]] <- full_checklines[which(full_checklines == mykingposition):length(full_checklines)]
 
@@ -139,9 +139,9 @@ pinned_piece2 <- function(currentboard = game$board, turn = game$turn, legalmove
   x<- 1
 
   # diagonals
-  for (j in 1 : length(alldiags)) {
-    if (mykingposition %in% alldiags[[j]]) {
-      full_checklines <- alldiags[[j]]
+  for (j in 1 : length(chess2plyrs::chesstools$alldiags)) {
+    if (mykingposition %in% chess2plyrs::chesstools$alldiags[[j]]) {
+      full_checklines <- chess2plyrs::chesstools$alldiags[[j]]
       potential_checklines0[["diag"]][[x]] <- full_checklines[1:which(full_checklines == mykingposition)]
       potential_checklines0[["diag"]][[x+1]] <- full_checklines[which(full_checklines == mykingposition):length(full_checklines)]
 
@@ -177,7 +177,7 @@ pinned_piece2 <- function(currentboard = game$board, turn = game$turn, legalmove
     set <- character(length = length(pc$rowcol[[j]]))
     x <- 1
     for (tile in pc$rowcol[[j]]) {
-      set[x] <- currentboard[which(tile == tilenames)]
+      set[x] <- currentboard[which(tile == chess2plyrs::chesstools$tilenames)]
       x <- x+1
     }
     set_collapsed <- paste0(set, collapse = "")
@@ -205,7 +205,7 @@ pinned_piece2 <- function(currentboard = game$board, turn = game$turn, legalmove
     set <- character(length = length(pc$diags[[j]]))
     x <- 1
     for (tile in pc$diags[[j]]) {
-      set[x] <- currentboard[which(tile == tilenames)]
+      set[x] <- currentboard[which(tile == chess2plyrs::chesstools$tilenames)]
       x <- x+1
     }
     set_collapsed <- paste0(set, collapse = "")

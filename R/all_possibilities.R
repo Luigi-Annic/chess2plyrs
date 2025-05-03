@@ -28,9 +28,9 @@ all_possibilities <- function(currentboard = game$board) {
       if (pl == "p") piece <- Pawn
 
       turn <- ifelse(unlist(strsplit(game$board[j], ""))[2] == "w", 1, -1)
-      mv0 <- defmoves(piece, initialposition = tilenames[j], turn)
+      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turn)
 
-      legalmoves[[unlist(strsplit(game$board[j], ""))[2]]][[paste0(game$board[j], "_", tilenames[j])]] <- mv0
+      legalmoves[[unlist(strsplit(game$board[j], ""))[2]]][[paste0(game$board[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
     }
   }
 
@@ -40,12 +40,12 @@ all_possibilities <- function(currentboard = game$board) {
   legalmoves[[myself]] <- pinned_piece2(legalmoves = legalmoves)
 
   # Our king can only go in squares which are not controlled by the enemy!
-  mykingposition <- tilenames[which(currentboard == paste0("K", myself) )]
+  mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
 
   available_K_squares <- legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]]
 
   #enemypiecescontrols <- unique(Reduce(c, subset(legalmoves[[enemy]], substr(names(legalmoves[[enemy]]),1,1) != "p")))
-  #enemypawns <- tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
+  #enemypawns <- chess2plyrs::chesstools$tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
 
   #pcol <- if (enemy == "w") whitepawns else blackpawns
 
@@ -66,8 +66,8 @@ all_possibilities <- function(currentboard = game$board) {
       !(paste0("e", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("f", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("g", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
-      currentboard[tilenames == paste0("f", castlingrow)] == "" &
-      currentboard[tilenames == paste0("g", castlingrow)] == "") {
+      currentboard[chess2plyrs::chesstools$tilenames == paste0("f", castlingrow)] == "" &
+      currentboard[chess2plyrs::chesstools$tilenames == paste0("g", castlingrow)] == "") {
 
     legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]] <- append(legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]], "0-0")
   }
@@ -78,9 +78,9 @@ all_possibilities <- function(currentboard = game$board) {
       !(paste0("c", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("d", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("e", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
-      currentboard[tilenames == paste0("b", castlingrow)] == "" &
-      currentboard[tilenames == paste0("c", castlingrow)] == "" &
-      currentboard[tilenames == paste0("d", castlingrow)] == "") {
+      currentboard[chess2plyrs::chesstools$tilenames == paste0("b", castlingrow)] == "" &
+      currentboard[chess2plyrs::chesstools$tilenames == paste0("c", castlingrow)] == "" &
+      currentboard[chess2plyrs::chesstools$tilenames == paste0("d", castlingrow)] == "") {
 
     legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]] <- append(legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]], "0-0-0")
   }
@@ -94,7 +94,7 @@ all_possibilities <- function(currentboard = game$board) {
     adjacent2 <- letters[which(letters == plt) +1]
 
     if (plt != "a") {
-     if (game$board[which(tilenames == paste0(adjacent1, ifelse(game$turn == 1,"5", "4")))] == paste0("p", myself))
+     if (game$board[which(chess2plyrs::chesstools$tilenames == paste0(adjacent1, ifelse(game$turn == 1,"5", "4")))] == paste0("p", myself))
     {
       legalmoves[[myself]][[paste0("p", myself, "_", adjacent1, ifelse(game$turn == 1,"5", "4"))]] <- c(
         legalmoves[[myself]][[paste0("p", myself, "_", adjacent1, ifelse(game$turn == 1,"5", "4"))]],
@@ -103,7 +103,7 @@ all_possibilities <- function(currentboard = game$board) {
     }
 
     if (plt != "h") {
-       if  (game$board[which(tilenames == paste0(adjacent2, ifelse(game$turn == 1,"5", "4")))] == paste0("p", myself))
+       if  (game$board[which(chess2plyrs::chesstools$tilenames == paste0(adjacent2, ifelse(game$turn == 1,"5", "4")))] == paste0("p", myself))
     {
       legalmoves[[myself]][[paste0("p", myself, "_", adjacent2, ifelse(game$turn == 1,"5", "4"))]] <- c(
         legalmoves[[myself]][[paste0("p", myself, "_", adjacent2, ifelse(game$turn == 1,"5", "4"))]],
