@@ -44,15 +44,18 @@ all_possibilities <- function(currentboard = game$board) {
 
   available_K_squares <- legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]]
 
-  enemypiecescontrols <- unique(Reduce(c, subset(legalmoves[[enemy]], substr(names(legalmoves[[enemy]]),1,1) != "p")))
-  enemypawns <- tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
+  #enemypiecescontrols <- unique(Reduce(c, subset(legalmoves[[enemy]], substr(names(legalmoves[[enemy]]),1,1) != "p")))
+  #enemypawns <- tilenames[unlist(lapply(1:64, function(j) currentboard[j] == paste0("p", enemy)))]
 
-  pcol <- if (enemy == "w") whitepawns else blackpawns
+  #pcol <- if (enemy == "w") whitepawns else blackpawns
 
-  enemypawnsattackers <- as.character(stats::na.omit(unique(as.character(pcol[3:4, enemypawns]))))
+  #enemypawnsattackers <- as.character(stats::na.omit(unique(as.character(pcol[3:4, enemypawns]))))
+
+  #legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]] <- subset(available_K_squares,
+  #!available_K_squares %in% c(enemypiecescontrols, enemypawnsattackers))
 
   legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]] <- subset(available_K_squares,
-                                                                             !available_K_squares %in% c(enemypiecescontrols, enemypawnsattackers))
+        !available_K_squares %in% as.character(unlist(enemy_attacks())))
 
   # If castle is available, add it as a legal move:
   castlingrow <- ifelse(game$turn == 1, "1", "8")
@@ -115,7 +118,7 @@ all_possibilities <- function(currentboard = game$board) {
   # If we are in check, legalomves[[myself]] is overwritten, and this finds the available moves:
   if (length(names(kingcheck(legalmoves = legalmoves))) >0) { # what you need to do if you are in check
     parries <- parrycheck(legalmoves = legalmoves)
-    escapes <- escapecheck(legalmoves = legalmoves)
+    escapes <- escapecheck(legalmoves = legalmoves) # questa semplicemente copia le mosse del re
     eaters  <- removeattacker(legalmoves = legalmoves)
 
 

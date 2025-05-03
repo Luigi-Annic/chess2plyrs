@@ -2,10 +2,10 @@ Package: chess2plyrs
 Type: Package
 Title: Chess player in base R
 Version: 0.1.0
-Author: Luigi Annicchiarico
-Maintainer: Luigi Annicchiarico <luigi.annic@gmail.com>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Authors@R: c(
+    person("Luigi", "Annicchiarico", email = "luigi.annic@gmail.com", role = c("cre", "aut"))
+    )
+Description: Chess program for playing against a friend, and (hopefully) soon a chess engine implemented.
 Depends:
     R (>= 4.3.0)
 Imports: 

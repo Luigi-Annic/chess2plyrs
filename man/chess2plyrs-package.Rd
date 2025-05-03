@@ -6,6 +6,10 @@
 \alias{chess2plyrs-package}
 \title{chess2plyrs: Chess player in base R}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+Chess program for playing against a friend, and (hopefully) soon a chess engine implemented.
+}
+\author{
+\strong{Maintainer}: Luigi Annicchiarico \email{luigi.annic@gmail.com}
+
 }
 \keyword{internal}

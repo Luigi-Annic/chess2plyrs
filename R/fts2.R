@@ -22,6 +22,9 @@ kingcheck <- function(currentboard = game$board, turn = game$turn, legalmoves){
 }
 
 parrycheck <- function(currentboard = game$board, turn = game$turn,  legalmoves) {
+  checkparry <- list()
+
+  if (length(names(kingcheck(legalmoves = legalmoves))) <= 1 ) {
 
   myself <- ifelse(turn == 1, "w", "b")
   mymoves =legalmoves[[myself]]
@@ -48,7 +51,7 @@ parrycheck <- function(currentboard = game$board, turn = game$turn,  legalmoves)
 
     # Troviamo tutte le mosse che si frappongano nelle caselle trovate in checkline
     # Ovviamente escludiamo il re dai pezzi paratori :)
-    checkparry <- list()
+
     for (j in 1:length(names(mymoves))) {
       if (length(intersect(mymoves[[j]], checkline)) > 0 &
           substr(names(mymoves)[[j]], 1,1) != "K") {
@@ -58,7 +61,7 @@ parrycheck <- function(currentboard = game$board, turn = game$turn,  legalmoves)
 
   } else checkparry <- list()
 
-
+  }
   return(checkparry)
 }
 
@@ -88,7 +91,7 @@ removeattacker <- function(currentboard = game$board, turn = game$turn, legalmov
 
   eaters <- list()
 
-  if (length(names(kingcheck(legalmoves = legalmoves))) == 1) {
+    if (length(names(kingcheck(legalmoves = legalmoves))) == 1) {
 
     checking_item <- names(kingcheck(legalmoves = legalmoves))
     checking_tile <- substr(checking_item, 4,5)

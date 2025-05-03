@@ -1,5 +1,14 @@
 # check obstacles for long range pieces (Rook, Bishop, Queen)
-check_obstacles <- function(m0, initialposition, board = game$board) {
+# nota che myself_movement e msf_chckobs sono elementi inseriti solo per calcolare la funzione
+# enemy_attacks: tranne che per questa funzione, sono sempre settati su TRUE tramite defmoves.
+# Con mysel_movement = TRUE la funzione esclude dalle mosse possibili le caselle dove e presente un
+# pezzo amico. Tuttavia, in enemy_attacks vogliamo trovare tutte le caselle in cui il re non può andare,
+# e una casella in cui ce un pezzo amico difeso e comunque da scartare dalle possibili caselle per il re
+#
+check_obstacles <- function(m0, initialposition, board = game$board, myself_movement = msf_chckobs) {
+
+  if (myself_movement == FALSE) {board[which(game$board == paste0("K", ifelse(game$turn == 1, "w", "b")))] <- ""} # se Donna da scacco in e2, e re nemico in e7, cosi si accorge che non puo andare in e8.
+
   occupied_tiles <- c()
   tile_index <- c()
   for (tile in m0){
@@ -33,6 +42,8 @@ check_obstacles <- function(m0, initialposition, board = game$board) {
     m1 <- m0[which(m0 == small_tile):which(m0==great_tile)]
 
     # remove tiles with pieces of the same colour if these are the great_tile and small_tile
+    if (myself_movement == TRUE) {
+
     if (unlist(strsplit(board[which(tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(tilenames==great_tile)], ""))[2] &
         board[which(tilenames==great_tile)] != "") {
       m1 <- m1[! m1 ==great_tile]
@@ -40,6 +51,7 @@ check_obstacles <- function(m0, initialposition, board = game$board) {
     if (unlist(strsplit(board[which(tilenames==initialposition)], ""))[2] == unlist(strsplit(board[which(tilenames==small_tile)], ""))[2] &
         board[which(tilenames==small_tile)] != "") {
       m1 <- m1[! m1 ==small_tile]
+    }
     }
 
   }
@@ -81,7 +93,7 @@ check_pawn_capture <- function(initialposition, board = game$board, turn = game$
 }
 
 # turn tells if it is white turn(1) or black turn (-1)
-defmoves <- function(piece, initialposition, turn = 1) {
+defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
   moves0 <- c()
 
   # Rook and Queen move
@@ -89,7 +101,7 @@ defmoves <- function(piece, initialposition, turn = 1) {
     for (l in names(alltravs)) {
       if (initialposition %in% alltravs[[l]]){
         m0 <- alltravs[[l]]
-        m1 <- check_obstacles(m0, initialposition)
+        m1 <- check_obstacles(m0, initialposition, myself_movement = msf_chckobs)
         moves0 <- c(moves0, m1)
       }
     }
@@ -100,7 +112,7 @@ defmoves <- function(piece, initialposition, turn = 1) {
     for (d in names(alldiags)) {
       if (initialposition %in% alldiags[[d]]){
         m0 <- alldiags[[d]]
-        m1 <- check_obstacles(m0, initialposition)
+        m1 <- check_obstacles(m0, initialposition, myself_movement = msf_chckobs)
         moves0 <- c(moves0, m1)
       }
     }
@@ -109,24 +121,31 @@ defmoves <- function(piece, initialposition, turn = 1) {
   # King move
   if ("k" %in% piece$movedirection) {
     m0 <- as.character(stats::na.omit(neigh[, initialposition]))
-    moves0 <- check_occupied_tile(m0, initialposition)
+
+    if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(m0, initialposition) else moves <- m0
   }
 
   # Knight move
   if ("n" %in% piece$movedirection) {
     m0 <- as.character(stats::na.omit(nighty[, initialposition]))
-    moves0 <- check_occupied_tile(m0, initialposition)
+    if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(m0, initialposition) else moves0 <- m0
   }
 
   # Pawn move
   if ("p" %in% piece$movedirection) {
     if (turn == 1) pawnmoves <- whitepawns else pawnmoves <- blackpawns
+
+    if (msf_chckobs == TRUE) {
     m0moves <- as.character(stats::na.omit(pawnmoves[c(1,2), initialposition]))
     moves0a <- check_occupied_tile(m0moves, initialposition)
 
     c1 <- check_pawn_capture(initialposition)
 
     moves0 <- c(moves0a, c1)
+    } else {
+
+      moves0 <- as.character(stats::na.omit(pawnmoves[c(3,4), initialposition]))
+    }
   }
 
   return(moves0)
