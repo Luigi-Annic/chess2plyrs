@@ -34,5 +34,5 @@ moves_scoresheet <- function(h = game$history, shortnotation = TRUE){
 
   data.frame(n = 1:ceiling(length(h)/2),
              white = hfin[alt == 1],
-             black = if (length(h)%%2 == 0) hfin[alt == -1] else c(h[alt == -1], ""))
+             black = if (length(h)%%2 == 0) hfin[alt == -1] else c(hfin[alt == -1], ""))
 }

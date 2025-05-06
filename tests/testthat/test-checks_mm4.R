@@ -267,8 +267,8 @@ all_possibilities()[["b"]]
 game <- newgame()
 #game <- random_mover()
 n <- 1
-set.seed(23746)
-while (game_result() != 1 & n < 100) {
+set.seed(382479)
+while (game_result() != 1 & n < 40) {
   n <- n+1
   game <- random_mover()
 }
