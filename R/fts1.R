@@ -92,6 +92,20 @@ check_pawn_capture <- function(initialposition, board = game$board, turn = game$
   return(c1)
 }
 
+# Check if pawn can move forward or if tile is occupied (this is the check_occupied_tile function
+#  specifically designed for pawns, as they cannot move forward if they have something there, no matter the color)
+
+pawn_forward <- function(m0, initialposition, board = game$board) {
+  m1 <- as.character(m0)
+  for (tile in m0) {
+    if (board[which(chess2plyrs::chesstools$tilenames==tile)] != "") {
+      m1 <- m1[! m1 == tile]
+    }
+  }
+  return(m1)
+}
+
+
 # turn tells if it is white turn(1) or black turn (-1)
 defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
   moves0 <- c()
@@ -137,7 +151,7 @@ defmoves <- function(piece, initialposition, turn = 1, msf_chckobs = TRUE) {
 
     if (msf_chckobs == TRUE) {
     m0moves <- as.character(stats::na.omit(pawnmoves[c(1,2), initialposition]))
-    moves0a <- check_occupied_tile(m0moves, initialposition)
+    moves0a <- pawn_forward(m0moves, initialposition)
 
     c1 <- check_pawn_capture(initialposition)
 

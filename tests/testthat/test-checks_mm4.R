@@ -1,3 +1,8 @@
+game |>
+  _[["history"]]
+
+game %>%
+  moves_scoresheet()
 # Cosa manca:
 #
 #
@@ -34,7 +39,8 @@ game <- make_move4("N", "g8", "f6")
 game <- make_move4("p", "c6", "b7")
 game <- make_move4("N", "b8", "c6")
 game <- make_move4("p", "b7", "c8")
-game <- make_move4("R", "a8", "c8")
+game <-  make_move4("R", "a8", "c8")
+
 
 game <- make_move4("B", "f1", "b5")
 game <- make_move4("Q", "d8", "d5")
@@ -255,3 +261,14 @@ all_possibilities()[["b"]]
 
 # Serve verificare se doppia inchiodatura funziona correttamente (ad es. se inchiodo un alfiere che sta
 # inchiodando il cavallo, rimangono funzionanti le inchiodature? Credo di si ma verifica)
+
+#####
+
+game <- newgame()
+#game <- random_mover()
+n <- 1
+set.seed(23746)
+while (game_result() != 1 & n < 100) {
+  n <- n+1
+  game <- random_mover()
+}
