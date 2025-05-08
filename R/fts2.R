@@ -2,7 +2,7 @@
 kingcheck <- function(currentboard = game$board, turn = game$turn, legalmoves){
   checkinglines <- list()
   myself <- ifelse(turn == 1, "w", "b")
-  enemy <- ifelse(game$turn == 1, "b", "w")
+  enemy <- ifelse(turn == 1, "b", "w")
   enemy_moves = legalmoves[[enemy]]
 
   mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
@@ -117,7 +117,7 @@ removeattacker <- function(currentboard = game$board, turn = game$turn, legalmov
 pinned_piece2 <- function(currentboard = game$board, turn = game$turn, legalmoves){
   checkinglines <- list()
   myself <- ifelse(turn == 1, "w", "b")
-  enemy <- ifelse(game$turn == 1, "b", "w")
+  enemy <- ifelse(turn == 1, "b", "w")
   mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
   #mymoves <- all_possibilities()[[myself]] # this will be the modified object, excluding unplayable moves due to pins
   mymoves <- legalmoves[[myself]]

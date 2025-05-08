@@ -4,11 +4,19 @@
 \alias{legalmoves}
 \title{legalmoves}
 \usage{
-legalmoves()
+legalmoves(turn = game$turn)
+}
+\arguments{
+\item{turn}{turn}
 }
 \value{
 character vector
 }
 \description{
 lists legal moves
+}
+\examples{
+game <- newgame()
+legalmoves()
+
 }

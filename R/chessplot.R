@@ -2,14 +2,16 @@
 #'
 #' @description chess plot
 #'
+#' @param currentboard curentboard
+#'
 #'
 #' @return plot
 #' @export
 #'
 
-chessplot <- function() {
+chessplot <- function(currentboard = game$board) {
 
-  currentboard <- game$board
+
   df <- expand.grid(xcoord = colnames(currentboard), ycoord = rownames(currentboard))
 
   df$tilename <- paste0(df$xcoord, df$ycoord)

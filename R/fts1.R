@@ -5,9 +5,9 @@
 # pezzo amico. Tuttavia, in enemy_attacks vogliamo trovare tutte le caselle in cui il re non può andare,
 # e una casella in cui ce un pezzo amico difeso e comunque da scartare dalle possibili caselle per il re
 #
-check_obstacles <- function(m0, initialposition, board = game$board, myself_movement = msf_chckobs) {
+check_obstacles <- function(m0, initialposition, board = game$board, turn = game$turn, myself_movement = msf_chckobs) {
 
-  if (myself_movement == FALSE) {board[which(game$board == paste0("K", ifelse(game$turn == 1, "w", "b")))] <- ""} # se Donna da scacco in e2, e re nemico in e7, cosi si accorge che non puo andare in e8.
+  if (myself_movement == FALSE) {board[which(board == paste0("K", ifelse(turn == 1, "w", "b")))] <- ""} # se Donna da scacco in e2, e re nemico in e7, cosi si accorge che non puo andare in e8.
 
   occupied_tiles <- c()
   tile_index <- c()

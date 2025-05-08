@@ -3,8 +3,10 @@
 #' @description finds all legal moves
 #'
 #' @param currentboard game$board
+#' @param turn turn
+#' @param history history
 #'
-#' @return all chess possiblities
+#' @return all chess possibilities
 #' @export
 #'
 #' @examples
@@ -12,13 +14,13 @@
 #' all_possibilities()
 #'
 
-all_possibilities <- function(currentboard = game$board) {
+all_possibilities <- function(currentboard = game$board, turn = game$turn, history = game$history) {
 
   legalmoves <- list()
 
-  for (j in (1 : length(game$board))) {
-    if (game$board[j] != "") {
-      piece <- unlist(strsplit(game$board[j], ""))[1]
+  for (j in (1 : length(currentboard))) {
+    if (currentboard[j] != "") {
+      piece <- unlist(strsplit(currentboard[j], ""))[1]
 
       #if (pl == "K") piece <- King
       #if (pl == "Q") piece <- Queen
@@ -27,16 +29,16 @@ all_possibilities <- function(currentboard = game$board) {
       #if (pl == "N") piece <- Knight
       #if (pl == "p") piece <- Pawn
 
-      turn <- ifelse(unlist(strsplit(game$board[j], ""))[2] == "w", 1, -1)
-      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turn)
+      turnx <- ifelse(unlist(strsplit(currentboard[j], ""))[2] == "w", 1, -1)
+      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turnx)
 
-      legalmoves[[unlist(strsplit(game$board[j], ""))[2]]][[paste0(game$board[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
+      legalmoves[[unlist(strsplit(currentboard[j], ""))[2]]][[paste0(currentboard[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
     }
   }
 
   # Now implement pinned piece restriction
-  myself <- ifelse(game$turn == 1, "w", "b")
-  enemy <- ifelse(game$turn == 1, "b", "w")
+  myself <- ifelse(turn == 1, "w", "b")
+  enemy <- ifelse(turn == 1, "b", "w")
   legalmoves[[myself]] <- pinned_piece2(legalmoves = legalmoves)
 
   # Our king can only go in squares which are not controlled by the enemy!
@@ -58,11 +60,11 @@ all_possibilities <- function(currentboard = game$board) {
         !available_K_squares %in% as.character(unlist(enemy_attacks())))
 
   # If castle is available, add it as a legal move:
-  castlingrow <- ifelse(game$turn == 1, "1", "8")
+  castlingrow <- ifelse(turn == 1, "1", "8")
 
   # short castle
-  if (!grepl(paste0("e", castlingrow), paste0(game$history, collapse = "_"), fixed = T) &
-      !grepl(paste0("h", castlingrow), paste0(game$history, collapse = "_"), fixed = T) &
+  if (!grepl(paste0("e", castlingrow), paste0(history, collapse = "_"), fixed = T) &
+      !grepl(paste0("h", castlingrow), paste0(history, collapse = "_"), fixed = T) &
       !(paste0("e", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("f", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("g", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
@@ -73,8 +75,8 @@ all_possibilities <- function(currentboard = game$board) {
   }
 
   #long castle
-  if (!grepl(paste0("e", castlingrow), paste0(game$history, collapse = "_"), fixed = T) &
-      !grepl(paste0("a", castlingrow), paste0(game$history, collapse = "_"), fixed = T) &
+  if (!grepl(paste0("e", castlingrow), paste0(history, collapse = "_"), fixed = T) &
+      !grepl(paste0("a", castlingrow), paste0(history, collapse = "_"), fixed = T) &
       !(paste0("c", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("d", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
       !(paste0("e", castlingrow) %in% unique(Reduce(c, legalmoves[[enemy]]))) &
@@ -86,27 +88,27 @@ all_possibilities <- function(currentboard = game$board) {
   }
 
   # En passant!?
-  if (!is.null(game$history)) {
-  if (grepl(paste0("^p", "[a-h]", ifelse(game$turn == 1,"7", "2"), "-", "[a-h]", ifelse(game$turn == 1,"5", "4")),
-            game$history[length(game$history)])) {
-    plt <- substr(game$history[length(game$history)],2,2)
+  if (!is.null(history)) {
+  if (grepl(paste0("^p", "[a-h]", ifelse(turn == 1,"7", "2"), "-", "[a-h]", ifelse(turn == 1,"5", "4")),
+            history[length(history)])) {
+    plt <- substr(history[length(history)],2,2)
     adjacent1 <- letters[which(letters == plt) -1]
     adjacent2 <- letters[which(letters == plt) +1]
 
     if (plt != "a") {
-     if (game$board[which(chess2plyrs::chesstools$tilenames == paste0(adjacent1, ifelse(game$turn == 1,"5", "4")))] == paste0("p", myself))
+     if (currentboard[which(chess2plyrs::chesstools$tilenames == paste0(adjacent1, ifelse(turn == 1,"5", "4")))] == paste0("p", myself))
     {
-      legalmoves[[myself]][[paste0("p", myself, "_", adjacent1, ifelse(game$turn == 1,"5", "4"))]] <- c(
-        legalmoves[[myself]][[paste0("p", myself, "_", adjacent1, ifelse(game$turn == 1,"5", "4"))]],
+      legalmoves[[myself]][[paste0("p", myself, "_", adjacent1, ifelse(turn == 1,"5", "4"))]] <- c(
+        legalmoves[[myself]][[paste0("p", myself, "_", adjacent1, ifelse(turn == 1,"5", "4"))]],
         paste0(plt, ifelse(myself == "w", 6, 3), "_e.p."))
      }
     }
 
     if (plt != "h") {
-       if  (game$board[which(chess2plyrs::chesstools$tilenames == paste0(adjacent2, ifelse(game$turn == 1,"5", "4")))] == paste0("p", myself))
+       if  (currentboard[which(chess2plyrs::chesstools$tilenames == paste0(adjacent2, ifelse(turn == 1,"5", "4")))] == paste0("p", myself))
     {
-      legalmoves[[myself]][[paste0("p", myself, "_", adjacent2, ifelse(game$turn == 1,"5", "4"))]] <- c(
-        legalmoves[[myself]][[paste0("p", myself, "_", adjacent2, ifelse(game$turn == 1,"5", "4"))]],
+      legalmoves[[myself]][[paste0("p", myself, "_", adjacent2, ifelse(turn == 1,"5", "4"))]] <- c(
+        legalmoves[[myself]][[paste0("p", myself, "_", adjacent2, ifelse(turn == 1,"5", "4"))]],
         paste0(plt, ifelse(myself == "w", 6, 3), "_e.p."))
     }
 }

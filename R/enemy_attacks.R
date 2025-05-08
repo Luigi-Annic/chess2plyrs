@@ -21,9 +21,9 @@ enemy_attacks <- function(currentboard = game$board, turn = game$turn) {
 
   enemymvs <- list()
 
-  for (j in (1 : length(game$board))) {
-    if (substr(game$board[j],2,2 ) == enemy) {
-      piece <- unlist(strsplit(game$board[j], ""))[1]
+  for (j in (1 : length(currentboard))) {
+    if (substr(currentboard[j],2,2 ) == enemy) {
+      piece <- unlist(strsplit(currentboard[j], ""))[1]
 
       #if (pl == "K") piece <- King
       #if (pl == "Q") piece <- Queen
@@ -32,10 +32,10 @@ enemy_attacks <- function(currentboard = game$board, turn = game$turn) {
       #if (pl == "N") piece <- Knight
       #if (pl == "p") piece <- Pawn
 
-      turn <- ifelse(unlist(strsplit(game$board[j], ""))[2] == "w", 1, -1)
-      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turn, msf_chckobs = FALSE)
+      turnx <- ifelse(unlist(strsplit(currentboard[j], ""))[2] == "w", 1, -1)
+      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turnx, msf_chckobs = FALSE)
 
-      enemymvs[[unlist(strsplit(game$board[j], ""))[2]]][[paste0(game$board[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
+      enemymvs[[unlist(strsplit(currentboard[j], ""))[2]]][[paste0(currentboard[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
     }
   }
 

@@ -4,13 +4,21 @@
 \alias{all_possibilities}
 \title{all_possibilities}
 \usage{
-all_possibilities(currentboard = game$board)
+all_possibilities(
+  currentboard = game$board,
+  turn = game$turn,
+  history = game$history
+)
 }
 \arguments{
 \item{currentboard}{game$board}
+
+\item{turn}{turn}
+
+\item{history}{history}
 }
 \value{
-all chess possiblities
+all chess possibilities
 }
 \description{
 finds all legal moves

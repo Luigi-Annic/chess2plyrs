@@ -7,6 +7,7 @@
 #' @param finalposition final square
 #' @param currentboard game$board
 #' @param turn game$turn
+#' @param history history
 #'
 #' @return makes move
 #' @export
@@ -14,7 +15,9 @@
 
 
 make_move4 <- function(piece, initialposition = "", finalposition = "", currentboard = game$board,
-                       turn = game$turn) {
+                       turn = game$turn, history = game$history) {
+
+  currentboard0 <- currentboard
 
   myself <- ifelse(game$turn == 1, "w", "b")
 
@@ -26,7 +29,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
     currentboard[which(chess2plyrs::chesstools$tilenames == paste0(substr(finalposition,1,1), substr(initialposition,2,2)))] <- ""
 
     move <- paste0(piece, initialposition, "x", finalposition, " e.p.")
-    history <- c(game$history, move)
+    history <- c(history, move)
     turn <- ifelse(length(history)%%2 == 0, 1, -1)
 
   } else if (finalposition %in% all_possibilities()[[myself]][[paste0(piece, myself, "_", initialposition)]]) {
@@ -41,7 +44,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
       currentboard[which(chess2plyrs::chesstools$tilenames == paste0("h", castlingrow))] <- ""
 
       move <- paste0("Ke", castlingrow, "_0-0")
-      history <- c(game$history, move)
+      history <- c(history, move)
       turn <- ifelse(length(history)%%2 == 0, 1, -1)
 
     } else if (finalposition == "0-0-0") {
@@ -54,7 +57,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
       currentboard[which(chess2plyrs::chesstools$tilenames == paste0("e", castlingrow))] <- ""
 
       move <- paste0("Ke", castlingrow, "_0-0-0")
-      history <- c(game$history, move)
+      history <- c(history, move)
       turn <- ifelse(length(history)%%2 == 0, 1, -1)
 
     } else { # or any other move!
@@ -69,7 +72,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
 
       # Enforce capture notation if piece is captured (x)
       #move <- paste0(piece$label, initialposition, "-", finalposition)
-      move <- if (game$board[chess2plyrs::chesstools$tilenames == finalposition] == "") {
+      move <- if (currentboard0[chess2plyrs::chesstools$tilenames == finalposition] == "") {
         paste0(piece, initialposition, "-", finalposition)
       } else {
         paste0(piece, initialposition, "x", finalposition)
@@ -78,14 +81,14 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
       if (piece == "p" & unlist(strsplit(finalposition, ""))[2] %in% c(1,8)) move <-paste0(move, "=Q")
 
 
-      history <- c(game$history, move)
+      history <- c(history, move)
       turn <- ifelse(length(history)%%2 == 0, 1, -1)
     }
 
 
   } else {
     message("Move not valid")
-    history <- game$history
+    history <- history
   }
 
 

@@ -211,6 +211,7 @@ game <- make_move4("p", "f7", "f5")
 
 all_possibilities()[["w"]][["pw_e5"]] # en passant is an option now
 #game <- make_move4("p", "e5", "f6")
+#chessplot()
 
 game <- make_move4("p", "a2", "a4")
 game <- make_move4("p", "b7", "b5")
@@ -265,7 +266,7 @@ game<- make_move4("p", "h7", "h6")
 game <- make_move4("B", "e3", "g5")
 
 all_possibilities()[["b"]]
-
+chessplot()
 # Serve verificare se doppia inchiodatura funziona correttamente (ad es. se inchiodo un alfiere che sta
 # inchiodando il cavallo, rimangono funzionanti le inchiodature? Credo di si ma verifica)
 
