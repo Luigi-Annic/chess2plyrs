@@ -83,6 +83,7 @@ game <- make_move4("N", "b8", "c6")
 
 game <- make_move4("K", "e1","0-0")
 
+chessplot()
 ###
 
 game <- newgame()
@@ -114,6 +115,8 @@ game <- make_move4("Q", "e7", "e4")
 game <- make_move4("p", "h3", "h4")
 
 all_possibilities()[["b"]] # FUnziona anche all'indietro, bene
+
+chessplot()
 ###
 
 game <- newgame()
@@ -131,6 +134,7 @@ game <- make_move4("p", "e4", "d5")
 
 game
 
+chessplot()
 ####
 
 game <- newgame()
@@ -152,6 +156,7 @@ game <- make_move4("Q", "d8", "c7") # Invalid!
 game <- make_move4("K", "e8", "d7") # Invalid!
 game <- make_move4("p", "e7", "f6")
 
+chessplot()
 ###
 game <- newgame()
 
@@ -164,7 +169,7 @@ game <- make_move4("p", "g3", "f4")
 game <- make_move4("Q", "d8", "h4")
 
 game_result()
-
+chessplot()
 ###
 
 game <- newgame()
@@ -189,6 +194,8 @@ game <- make_move4("N", "b8", "d7")
 
 game <- make_move4("N", "e4", "d6")
 game_result()
+
+chessplot()
 
 ####
 game <- newgame()
@@ -234,7 +241,7 @@ game <- make_move4("K", "f3", "g4")
 game <- make_move4("p", "h7", "h5")
 
 all_possibilities()[["w"]][["Kw_g4"]]
-
+chessplot()
 
 ### DOuble check
 
@@ -268,7 +275,10 @@ game <- newgame()
 #game <- random_mover()
 n <- 1
 set.seed(382479)
-while (game_result() != 1 & n < 40) {
+while (game_result() != 1 & n < 10) {
   n <- n+1
   game <- random_mover()
+
+  chessplot()
+
 }
