@@ -11,6 +11,11 @@
 
 chessplot <- function(currentboard = game$board) {
 
+  unicode <- c(
+    ` ` = '',
+    P='\u2659', R='\u2656', N='\u2658', B='\u2657', Q='\u2655', K='\u2654', # White
+    p='\u265F', r='\u265C', n='\u265E', b='\u265D', q='\u265B', k='\u265A'  # Black
+  )
 
   df <- expand.grid(xcoord = colnames(currentboard), ycoord = rownames(currentboard))
 
