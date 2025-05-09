@@ -15,3 +15,7 @@ board and turn
 \description{
 reads fen
 }
+\examples{
+readfen("r3kb1r/pp1nqppp/4bp2/2p5/3P4/1B3N2/PPP1QPPP/R1B1K2R w")
+
+}

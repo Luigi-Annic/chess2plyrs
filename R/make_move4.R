@@ -8,6 +8,7 @@
 #' @param currentboard game$board
 #' @param turn game$turn
 #' @param history history
+#' @param fen_history fen history
 #'
 #' @return makes move
 #' @export
@@ -15,7 +16,7 @@
 
 
 make_move4 <- function(piece, initialposition = "", finalposition = "", currentboard = game$board,
-                       turn = game$turn, history = game$history) {
+                       turn = game$turn, history = game$history, fen_history = game$fen_history) {
 
   currentboard0 <- currentboard
 
@@ -31,6 +32,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
     move <- paste0(piece, initialposition, "x", finalposition, " e.p.")
     history <- c(history, move)
     turn <- ifelse(length(history)%%2 == 0, 1, -1)
+    fen_history = c(fen_history, writefen(currentboard))
 
   } else if (finalposition %in% all_possibilities()[[myself]][[paste0(piece, myself, "_", initialposition)]]) {
 
@@ -46,6 +48,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
       move <- paste0("Ke", castlingrow, "_0-0")
       history <- c(history, move)
       turn <- ifelse(length(history)%%2 == 0, 1, -1)
+      fen_history = c(fen_history, writefen(currentboard))
 
     } else if (finalposition == "0-0-0") {
       castlingrow <- ifelse(game$turn == 1, "1", "8")
@@ -59,6 +62,7 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
       move <- paste0("Ke", castlingrow, "_0-0-0")
       history <- c(history, move)
       turn <- ifelse(length(history)%%2 == 0, 1, -1)
+      fen_history = c(fen_history, writefen(currentboard))
 
     } else { # or any other move!
 
@@ -83,16 +87,19 @@ make_move4 <- function(piece, initialposition = "", finalposition = "", currentb
 
       history <- c(history, move)
       turn <- ifelse(length(history)%%2 == 0, 1, -1)
+      fen_history = c(fen_history, writefen(currentboard))
     }
 
 
   } else {
     message("Move not valid")
     history <- history
+    fen_history = fen_history
   }
 
 
-  return(list(board = currentboard, turn = turn, history = history))
+  return(list(board = currentboard, turn = turn,
+              history = history, fen_history = fen_history))
 }
 
 

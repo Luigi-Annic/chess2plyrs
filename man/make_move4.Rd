@@ -10,7 +10,8 @@ make_move4(
   finalposition = "",
   currentboard = game$board,
   turn = game$turn,
-  history = game$history
+  history = game$history,
+  fen_history = game$fen_history
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ make_move4(
 \item{turn}{game$turn}
 
 \item{history}{history}
+
+\item{fen_history}{fen history}
 }
 \value{
 makes move
