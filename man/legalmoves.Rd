@@ -4,10 +4,11 @@
 \alias{legalmoves}
 \title{legalmoves}
 \usage{
-legalmoves(turn = game$turn)
+legalmoves(game)
 }
 \arguments{
-\item{turn}{turn}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 }
 \value{
 character vector
@@ -16,7 +17,7 @@ character vector
 lists legal moves
 }
 \examples{
-game <- newgame()
+newgame() |>
 legalmoves()
 
 }

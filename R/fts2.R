@@ -1,5 +1,9 @@
 # Kingcheck function returns all pieces giving check to the king
-kingcheck <- function(currentboard = game$board, turn = game$turn, legalmoves){
+kingcheck <- function(game, legalmoves){
+
+  currentboard = game$board
+  turn = game$turn
+
   checkinglines <- list()
   myself <- ifelse(turn == 1, "w", "b")
   enemy <- ifelse(turn == 1, "b", "w")
@@ -21,16 +25,20 @@ kingcheck <- function(currentboard = game$board, turn = game$turn, legalmoves){
   return(checkinglines)
 }
 
-parrycheck <- function(currentboard = game$board, turn = game$turn,  legalmoves) {
+parrycheck <- function(game,legalmoves) {
+
+  currentboard = game$board
+  turn = game$turn
+
   checkparry <- list()
 
-  if (length(names(kingcheck(legalmoves = legalmoves))) <= 1 ) {
+  if (length(names(kingcheck(game, legalmoves = legalmoves))) <= 1 ) {
 
   myself <- ifelse(turn == 1, "w", "b")
   mymoves =legalmoves[[myself]]
   mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
 
-  checking_item <- names(kingcheck(legalmoves = legalmoves))
+  checking_item <- names(kingcheck(game, legalmoves = legalmoves))
   checking_tile <- substr(checking_item, 4,5)
 
   if (substr(checking_item,1,1) %in% c("B", "Q", "R") & length(checking_item) == 1) {
@@ -67,7 +75,10 @@ parrycheck <- function(currentboard = game$board, turn = game$turn,  legalmoves)
 
 
 
-escapecheck <- function(currentboard = game$board, turn = game$turn, legalmoves) {
+escapecheck <- function(game, legalmoves) {
+
+  currentboard = game$board
+  turn = game$turn
 
   escapes <- list()
 
@@ -87,13 +98,16 @@ escapecheck <- function(currentboard = game$board, turn = game$turn, legalmoves)
 }
 
 
-removeattacker <- function(currentboard = game$board, turn = game$turn, legalmoves) {
+removeattacker <- function(game, legalmoves) {
+
+  currentboard = game$board
+  turn = game$turn
 
   eaters <- list()
 
-    if (length(names(kingcheck(legalmoves = legalmoves))) == 1) {
+    if (length(names(kingcheck(game, legalmoves = legalmoves))) == 1) {
 
-    checking_item <- names(kingcheck(legalmoves = legalmoves))
+    checking_item <- names(kingcheck(game, legalmoves = legalmoves))
     checking_tile <- substr(checking_item, 4,5)
 
     myself <- ifelse(turn == 1, "w", "b")
@@ -114,7 +128,11 @@ removeattacker <- function(currentboard = game$board, turn = game$turn, legalmov
 
 
 
-pinned_piece2 <- function(currentboard = game$board, turn = game$turn, legalmoves){
+pinned_piece2 <- function(game, legalmoves){
+
+  currentboard = game$board
+  turn = game$turn
+
   checkinglines <- list()
   myself <- ifelse(turn == 1, "w", "b")
   enemy <- ifelse(turn == 1, "b", "w")

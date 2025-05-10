@@ -2,16 +2,28 @@
 #'
 #' @description writes fen
 #'
-#' @param currentboard currentboard
-#' @param turn game$turn
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
+#' @param cb  chess board if cb_tf_insteadof_game set to TRUE
+#' @param tb  turn if cb_tf_insteadof_game set to TRUE
+#' @param cb_tb_insteadof_game if FALSE, uses game to create fen, if TRUE it uses cb and tb
 #'
 #' @return fen
 #' @export
 #'
 
 
-writefen <- function(currentboard = game$board,
-                     turn = game$turn) {
+writefen <- function(game, cb = NULL, tb = NULL, cb_tb_insteadof_game = FALSE) {
+
+  if (cb_tb_insteadof_game == FALSE) {
+
+   currentboard = game$board
+   turn = game$turn
+
+  } else {
+    currentboard = cb
+    turn = tb
+   }
 
   currentboard2 <- ifelse(substr(currentboard, 2, 2) == "w", toupper(substr(currentboard, 1, 1)),
                           tolower(substr(currentboard, 1, 1)))

@@ -2,9 +2,10 @@
 #'
 #' @description  takeback
 #'
-#' @param game game
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
 #'
-#' @return new game
+#' @return game (last move being deleted)
 #' @export
 
 takeback <- function(game) {

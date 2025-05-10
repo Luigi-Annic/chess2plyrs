@@ -2,7 +2,8 @@
 #'
 #' @description Creates move scorelist, in beautiful notation
 #'
-#' @param h game$hstory
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
 #' @param shortnotation Use short scientific notation? TRUE is he default
 #'
 #' @return moves scoresheet
@@ -14,7 +15,9 @@
 # e.g. when Knight on b3, other Knight on f3, and short move listed as Nd4
 # Anyway, the scorelist saved in history also has the starting square so you can look at it in case of doubt
 
-moves_scoresheet <- function(h = game$history, shortnotation = TRUE){
+moves_scoresheet <- function(game, shortnotation = TRUE){
+  h = game$history
+
   if (shortnotation == TRUE) {
     h_orig <- h_alt<- h
     substr(h, 2,4) <- "  "

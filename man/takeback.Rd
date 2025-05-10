@@ -7,10 +7,11 @@
 takeback(game)
 }
 \arguments{
-\item{game}{game}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 }
 \value{
-new game
+game (last move being deleted)
 }
 \description{
 takeback

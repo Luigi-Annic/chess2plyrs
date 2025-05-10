@@ -2,19 +2,22 @@
 #'
 #' @description finds all legal moves
 #'
-#' @param currentboard game$board
-#' @param turn turn
-#' @param history history
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
 #'
 #' @return all chess possibilities
 #' @export
 #'
 #' @examples
-#' game <- newgame()
+#' newgame() |>
 #' all_possibilities()
 #'
 
-all_possibilities <- function(currentboard = game$board, turn = game$turn, history = game$history) {
+all_possibilities <- function(game) {
+
+  currentboard = game$board
+  turn = game$turn
+  history = game$history
 
   legalmoves <- list()
 
@@ -30,7 +33,7 @@ all_possibilities <- function(currentboard = game$board, turn = game$turn, histo
       #if (pl == "p") piece <- Pawn
 
       turnx <- ifelse(unlist(strsplit(currentboard[j], ""))[2] == "w", 1, -1)
-      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turnx)
+      mv0 <- defmoves(game, piece, initialposition = chess2plyrs::chesstools$tilenames[j], turnx)
 
       legalmoves[[unlist(strsplit(currentboard[j], ""))[2]]][[paste0(currentboard[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
     }
@@ -39,7 +42,7 @@ all_possibilities <- function(currentboard = game$board, turn = game$turn, histo
   # Now implement pinned piece restriction
   myself <- ifelse(turn == 1, "w", "b")
   enemy <- ifelse(turn == 1, "b", "w")
-  legalmoves[[myself]] <- pinned_piece2(legalmoves = legalmoves)
+  legalmoves[[myself]] <- pinned_piece2(game, legalmoves = legalmoves)
 
   # Our king can only go in squares which are not controlled by the enemy!
   mykingposition <- chess2plyrs::chesstools$tilenames[which(currentboard == paste0("K", myself) )]
@@ -57,7 +60,7 @@ all_possibilities <- function(currentboard = game$board, turn = game$turn, histo
   #!available_K_squares %in% c(enemypiecescontrols, enemypawnsattackers))
 
   legalmoves[[myself]][[paste0("K", myself, "_", mykingposition)]] <- subset(available_K_squares,
-        !available_K_squares %in% as.character(unlist(enemy_attacks())))
+        !available_K_squares %in% as.character(unlist(enemy_attacks(game))))
 
   # If castle is available, add it as a legal move:
   castlingrow <- ifelse(turn == 1, "1", "8")
@@ -118,10 +121,10 @@ all_possibilities <- function(currentboard = game$board, turn = game$turn, histo
 
 
   # If we are in check, legalomves[[myself]] is overwritten, and this finds the available moves:
-  if (length(names(kingcheck(legalmoves = legalmoves))) >0) { # what you need to do if you are in check
-    parries <- parrycheck(legalmoves = legalmoves)
-    escapes <- escapecheck(legalmoves = legalmoves) # questa semplicemente copia le mosse del re
-    eaters  <- removeattacker(legalmoves = legalmoves)
+  if (length(names(kingcheck(game, legalmoves = legalmoves))) >0) { # what you need to do if you are in check
+    parries <- parrycheck(game, legalmoves = legalmoves)
+    escapes <- escapecheck(game, legalmoves = legalmoves) # questa semplicemente copia le mosse del re
+    eaters  <- removeattacker(game, legalmoves = legalmoves)
 
 
     keys <- unique(c(names(escapes), names(eaters), names(parries)))

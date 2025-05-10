@@ -2,14 +2,17 @@
 #'
 #' @description chess plot
 #'
-#' @param currentboard curentboard
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'             as created by newgame function)
 #'
 #'
 #' @return plot
 #' @export
 #'
 
-chessplot <- function(currentboard = game$board) {
+chessplot <- function(game) {
+
+  currentboard = game$board
 
   unicode <- c(
     ` ` = '',

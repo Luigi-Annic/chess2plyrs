@@ -4,18 +4,11 @@
 \alias{all_possibilities}
 \title{all_possibilities}
 \usage{
-all_possibilities(
-  currentboard = game$board,
-  turn = game$turn,
-  history = game$history
-)
+all_possibilities(game)
 }
 \arguments{
-\item{currentboard}{game$board}
-
-\item{turn}{turn}
-
-\item{history}{history}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 }
 \value{
 all chess possibilities
@@ -24,7 +17,7 @@ all chess possibilities
 finds all legal moves
 }
 \examples{
-game <- newgame()
+newgame() |>
 all_possibilities()
 
 }

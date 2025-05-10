@@ -4,12 +4,11 @@
 \alias{game_result}
 \title{game_result}
 \usage{
-game_result(currentboard = game$board, turn = game$turn)
+game_result(game)
 }
 \arguments{
-\item{currentboard}{game$currentboard}
-
-\item{turn}{game4turn}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 }
 \value{
 a message

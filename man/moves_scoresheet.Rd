@@ -4,10 +4,11 @@
 \alias{moves_scoresheet}
 \title{moves_scoresheet}
 \usage{
-moves_scoresheet(h = game$history, shortnotation = TRUE)
+moves_scoresheet(game, shortnotation = TRUE)
 }
 \arguments{
-\item{h}{game$hstory}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 
 \item{shortnotation}{Use short scientific notation? TRUE is he default}
 }

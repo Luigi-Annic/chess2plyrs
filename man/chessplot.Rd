@@ -4,10 +4,11 @@
 \alias{chessplot}
 \title{chessplot}
 \usage{
-chessplot(currentboard = game$board)
+chessplot(game)
 }
 \arguments{
-\item{currentboard}{curentboard}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 }
 \value{
 plot

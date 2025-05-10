@@ -15,7 +15,11 @@
 # soltanto per la verifica delle case dove il mio re puo andare in questo momento. Probabilmente meglio
 # tenere all_possibilities()[[enemy]] per le altre valutazioni per evitare bug
 
-enemy_attacks <- function(currentboard = game$board, turn = game$turn) {
+enemy_attacks <- function(game) {
+
+  currentboard = game$board
+  turn = game$turn
+
   myself <- ifelse(turn == 1, "w", "b")
   enemy <- ifelse(game$turn == 1, "b", "w")
 
@@ -33,7 +37,7 @@ enemy_attacks <- function(currentboard = game$board, turn = game$turn) {
       #if (pl == "p") piece <- Pawn
 
       turnx <- ifelse(unlist(strsplit(currentboard[j], ""))[2] == "w", 1, -1)
-      mv0 <- defmoves(piece, initialposition = chess2plyrs::chesstools$tilenames[j], turnx, msf_chckobs = FALSE)
+      mv0 <- defmoves(game, piece, initialposition = chess2plyrs::chesstools$tilenames[j], turnx, msf_chckobs = FALSE)
 
       enemymvs[[unlist(strsplit(currentboard[j], ""))[2]]][[paste0(currentboard[j], "_", chess2plyrs::chesstools$tilenames[j])]] <- mv0
     }

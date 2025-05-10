@@ -2,21 +2,22 @@
 #'
 #' @description lists legal moves
 #'
-#' @param turn turn
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
 #'
 #' @return character vector
 #' @export
 #'
 #' @examples
-#' game <- newgame()
+#' newgame() |>
 #' legalmoves()
 #'
 
-legalmoves <- function(turn = game$turn){
-
+legalmoves <- function(game){
+  turn = game$turn
   myself <- ifelse(turn == 1, "w", "b")
 
-  lg <- all_possibilities()[[myself]]
+  lg <- all_possibilities(game)[[myself]]
 
 
   unlist(lapply(1:length(unlist(lg)),

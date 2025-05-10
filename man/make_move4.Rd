@@ -4,30 +4,17 @@
 \alias{make_move4}
 \title{make_move4}
 \usage{
-make_move4(
-  piece,
-  initialposition = "",
-  finalposition = "",
-  currentboard = game$board,
-  turn = game$turn,
-  history = game$history,
-  fen_history = game$fen_history
-)
+make_move4(game, piece, initialposition = "", finalposition = "")
 }
 \arguments{
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
+
 \item{piece}{piece to be moved}
 
 \item{initialposition}{initial square of the piece}
 
 \item{finalposition}{final square}
-
-\item{currentboard}{game$board}
-
-\item{turn}{game$turn}
-
-\item{history}{history}
-
-\item{fen_history}{fen history}
 }
 \value{
 makes move

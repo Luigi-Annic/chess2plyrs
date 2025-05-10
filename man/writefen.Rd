@@ -4,12 +4,17 @@
 \alias{writefen}
 \title{writefen}
 \usage{
-writefen(currentboard = game$board, turn = game$turn)
+writefen(game, cb = NULL, tb = NULL, cb_tb_insteadof_game = FALSE)
 }
 \arguments{
-\item{currentboard}{currentboard}
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 
-\item{turn}{game$turn}
+\item{cb}{chess board if cb_tf_insteadof_game set to TRUE}
+
+\item{tb}{turn if cb_tf_insteadof_game set to TRUE}
+
+\item{cb_tb_insteadof_game}{if FALSE, uses game to create fen, if TRUE it uses cb and tb}
 }
 \value{
 fen

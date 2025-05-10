@@ -2,8 +2,8 @@
 #'
 #' @description # game ending check
 #'
-#' @param currentboard game$currentboard
-#' @param turn game4turn
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
 #'
 #' @return a message
 #' @export
@@ -11,13 +11,17 @@
 
 
 
-game_result <- function(currentboard = game$board, turn = game$turn) {
+game_result <- function(game) {
+
+  currentboard = game$board
+  turn = game$turn
+
   playersturn <- ifelse(turn == 1, "w", "b")
   color <- ifelse(playersturn == "w", "white", "black")
   other <- ifelse(playersturn == "w", "black", "white")
 
   if (length(as.character(unlist(all_possibilities()[[playersturn]]))) == 0) {
-    if (length(kingcheck(currentboard = currentboard, turn = turn, legalmoves = all_possibilities(currentboard = currentboard))) > 0) {
+    if (length(kingcheck(game, legalmoves = all_possibilities(game))) > 0) {
       game_ended <- 1
       message("Checkmate! End of the game")
       message(paste0(other, " wins"))
