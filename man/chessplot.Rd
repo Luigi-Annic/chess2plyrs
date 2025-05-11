@@ -4,11 +4,13 @@
 \alias{chessplot}
 \title{chessplot}
 \usage{
-chessplot(game)
+chessplot(game, style = 1)
 }
 \arguments{
 \item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
 as created by newgame function)}
+
+\item{style}{font style (1 or 2)}
 }
 \value{
 plot

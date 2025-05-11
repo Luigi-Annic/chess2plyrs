@@ -82,8 +82,8 @@ g4 <- newgame() |>
 g4 |>
   make_move4("Q", "d8", "d7") |>
   make_move4("N", "b1", "c3") |>
-  make_move4("K", "e8","0-0-0") |>
-  chessplot()
+  make_move4("K", "e8","0-0-0")  |>
+  chessplot(style = 2)
 
 make_move4(g4, "Q", "d8", "d7") # alternative without pipes
 ###
@@ -112,7 +112,7 @@ g <- newgame() |>
 
 all_possibilities(g)[["b"]] # Le inchiodature funzionano: il cavallo in c6 non ha caselle e la donna ha solo quelle sulla linea della torre
 
-chessplot(g)
+chessplot(g, style = 2)
 
 g |>
   make_move4("Q", "e7", "e4") |>
@@ -132,7 +132,7 @@ newgame() |>
   #make_move4("N", "c6", "e5") # The program spots that this move is not valid!! Yuppi
   make_move4("p", "e7", "e6") |>
   make_move4("p", "e4", "d5") |>
-  chessplot()
+  chessplot(style = 2)
 
 ####
 
@@ -158,7 +158,7 @@ legalmoves(g2)
  make_move4(g2, "K", "e8", "d7") # Invalid!
 
  make_move4(g2, "p", "e7", "f6") |>
-   chessplot()
+   chessplot(style = 2)
 
  ###
 g3 <- newgame() |>
@@ -175,7 +175,7 @@ g3 <- newgame() |>
 game_result(g3)
 legalmoves(g3)
 
-chessplot(g3)
+chessplot(g3, style = 2)
 ###
 
 g4<- newgame() |>
@@ -199,7 +199,7 @@ g4<- newgame() |>
   make_move4("N", "e4", "d6")
 game_result(g4)
 
-chessplot(g4)
+chessplot(g4, style = 2)
 
 ####
 
@@ -217,7 +217,7 @@ g5 <- newgame() |>
 all_possibilities(g5)[["w"]][["pw_e5"]] # en passant is an option now
 
 make_move4(g5 ,"p", "e5", "f6") |>
- chessplot()
+ chessplot(style = 2)
 
 make_move4(g5 ,"p", "e5", "f6") |>
   moves_scoresheet()
@@ -246,7 +246,7 @@ g7 <- newgame() |>
   make_move4("K", "e2", "f3") |>
   make_move4("p", "g7", "g5")
 
-chessplot(g7)
+chessplot(g7, style = 2)
 all_possibilities(g7)[["w"]][["Kw_f3"]]
 
 g7 |>
@@ -277,7 +277,7 @@ g8<-   newgame() |>
   make_move4("B", "e3", "g5")
 
 legalmoves(g8)
-chessplot(g8)
+chessplot(g8, style = 2)
 
 # Serve verificare se doppia inchiodatura funziona correttamente (ad es. se inchiodo un alfiere che sta
 # inchiodando il cavallo, rimangono funzionanti le inchiodature? Credo di si ma verifica)
@@ -292,7 +292,7 @@ while (game_result(randomgame) != 1 & n < 10) {
   n <- n+1
   randomgame <- random_mover(randomgame)
 
-  chessplot(randomgame)
+  #chessplot(randomgame)
 
 }
 

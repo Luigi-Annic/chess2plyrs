@@ -1,4 +1,5 @@
 #'
 utils::globalVariables(c("game", "msf_chckobs",
                          "chesstools", "chessunicode", "color",
-                         "unicode", "xpos", "ypos"))
+                         "unicode", "xpos", "ypos",
+                         "piecestyle"))

@@ -4,13 +4,13 @@
 #'
 #' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
 #'             as created by newgame function)
-#'
+#' @param style font style (1 or 2)
 #'
 #' @return plot
 #' @export
 #'
 
-chessplot <- function(game) {
+chessplot <- function(game, style = 1) {
 
   currentboard = game$board
 
@@ -41,11 +41,12 @@ chessplot <- function(game) {
   #                        (substr(df$tilename,1,1) %in% c("b", "d", "f", "h") & substr(df$tilename, 2, 2) %in% c(2,4,6,8)),
   #                      "gray30", "gray90")
 
+  df$piecestyle <- if (style == 1) df$chessunicode else if (style ==2) df$piece
 
   print(
     ggplot(df,
            aes(x = xpos -0.5, y = ypos -0.5,
-               label = chessunicode, colour = color)) +
+               label = piecestyle, colour = color)) +
       #geom_tile(aes(fill = tilecol), show.legend = FALSE) +
       geom_text(size = 10, na.rm = T) +
       theme(legend.position = "none",
