@@ -20,8 +20,10 @@ legalmoves <- function(game){
   lg <- all_possibilities(game)[[myself]]
 
 
-  unlist(lapply(1:length(unlist(lg)),
+  lgm <- unlist(lapply(1:length(unlist(lg)),
                 function(x) paste0(substr(names(unlist(lg))[x] ,1,1),
                                    substr(names(unlist(lg))[x] ,4,5),
                                    unlist(lg)[x])))
+
+  subset(lgm, lgm != "NA")
 }

@@ -20,7 +20,7 @@ game_result <- function(game) {
   color <- ifelse(playersturn == "w", "white", "black")
   other <- ifelse(playersturn == "w", "black", "white")
 
-  if (length(as.character(unlist(all_possibilities()[[playersturn]]))) == 0) {
+  if (length(as.character(unlist(all_possibilities(game)[[playersturn]]))) == 0) {
     if (length(kingcheck(game, legalmoves = all_possibilities(game))) > 0) {
       game_ended <- 1
       message("Checkmate! End of the game")

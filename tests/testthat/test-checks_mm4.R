@@ -1,29 +1,3 @@
-#game |>
-#  _[["history"]]
-
-#newgame() |>
-#  writefen()
-
-#game %>%
-# moves_scoresheet()
-
-# Cosa manca:
-#
-#
-#
-#  - Engine :) prima uno che faccia random moves, poi proviamo a implementare minimax algorithm
-#
-#
-# - implementazione en passant in situazioni speciali (se il pedone che da scacco e catturabile en passant in questo momento
-#    l'en passant non viene vista come mossa che elimina il pezzo attaccante e per cui non viene identificata)
-#    simili problemi potrebbero esserci se l'en passant non puo essere giocata per inchiodatura forse (da verificare)
-#
-# - opening_name() function che dice quale e il nome dell'apertura in game
-#
-# - Funzione che in caso di "not valid move" vada a cercare di diagnosticare perche la mossa non e valida (
-#   re sotto scacco? non corretto il pezzo in startingposition? non puo arrivare dove dice finalposition? inchiodatura?)
-#
-
 legalmoves(game = newgame())
 
 newgame() |>
@@ -114,37 +88,38 @@ g4 |>
 make_move4(g4, "Q", "d8", "d7") # alternative without pipes
 ###
 
-game <- newgame()
+g <- newgame() |>
+   make_move4("p", "e2", "e4") |>
+   make_move4("p", "e7", "e6") |>
+   make_move4("p", "d2", "d4") |>
+   make_move4("p", "d7", "d5") |>
+   make_move4("p", "e4", "d5") |>
+   make_move4("p", "e6", "d5") |>
 
-game<- make_move4("p", "e2", "e4")
-game <- make_move4("p", "e7", "e6")
-game<- make_move4("p", "d2", "d4")
-game <- make_move4("p", "d7", "d5")
-game<- make_move4("p", "e4", "d5")
-game <- make_move4("p", "e6", "d5")
+   make_move4("N", "g1", "f3") |>
+   make_move4("N", "g8", "f6") |>
 
-game <- make_move4("N", "g1", "f3")
-game <- make_move4("N", "g8", "f6")
+   make_move4("B", "f1", "b5") |>
+   make_move4("N", "b8", "c6") |>
 
-game <- make_move4("B", "f1", "b5")
-game <- make_move4("N", "b8", "c6")
+   make_move4("K", "e1" ,"0-0") |>
+   make_move4("p", "a7" ,"a6") |>
 
-game <- make_move4("K", "e1" ,"0-0")
-game <- make_move4("p", "a7" ,"a6")
+   make_move4("R", "f1", "e1") |>
+   make_move4("Q", "d8", "e7") |>
 
-game <- make_move4("R", "f1", "e1")
-game <- make_move4("Q", "d8", "e7")
+   make_move4("p", "h2", "h3")
 
-game <- make_move4("p", "h2", "h3")
+all_possibilities(g)[["b"]] # Le inchiodature funzionano: il cavallo in c6 non ha caselle e la donna ha solo quelle sulla linea della torre
 
-all_possibilities()[["b"]] # Le inchiodature funzionano: il cavallo in c6 non ha caselle e la donna ha solo quelle sulla linea della torre
+chessplot(g)
 
-game <- make_move4("Q", "e7", "e4")
-game <- make_move4("p", "h3", "h4")
+g |>
+  make_move4("Q", "e7", "e4") |>
+  make_move4("p", "h3", "h4") |>
+  legalmoves()  # FUnziona anche all'indietro, bene
 
-all_possibilities()[["b"]] # FUnziona anche all'indietro, bene
 
-chessplot()
 ###
 
 newgame() |>
@@ -161,149 +136,169 @@ newgame() |>
 
 ####
 
-game <- newgame()
+g2 <- newgame() |>
 
-game <- make_move4("p", "e2", "e4")
-game <- make_move4("p", "c7", "c6")
+   make_move4("p", "e2", "e4") |>
+   make_move4("p", "c7", "c6") |>
 
-game <- make_move4("p", "d2", "d4")
-game <- make_move4("p", "d7", "d5")
+   make_move4("p", "d2", "d4") |>
+   make_move4("p", "d7", "d5") |>
 
-game <- make_move4("N", "b1", "c3")
-game <- make_move4("p", "d5", "e4")
+   make_move4("N", "b1", "c3") |>
+   make_move4("p", "d5", "e4") |>
 
-game <- make_move4("N", "c3", "e4")
-game <- make_move4("N", "g8", "f6")
+   make_move4("N", "c3", "e4") |>
+   make_move4("N", "g8", "f6") |>
 
-game <- make_move4("N", "e4", "f6")
-game <- make_move4("Q", "d8", "c7") # Invalid!
-game <- make_move4("K", "e8", "d7") # Invalid!
-game <- make_move4("p", "e7", "f6")
+   make_move4("N", "e4", "f6")
 
-chessplot()
+legalmoves(g2)
+
+ make_move4(g2, "Q", "d8", "c7") # Invalid!
+ make_move4(g2, "K", "e8", "d7") # Invalid!
+
+ make_move4(g2, "p", "e7", "f6") |>
+   chessplot()
+
+ ###
+g3 <- newgame() |>
+
+  make_move4("p", "f2", "f4") |>
+  make_move4("p", "e7", "e5") |>
+  make_move4("p", "g2", "g3") |>
+  make_move4("p", "e5", "f4") |>
+  make_move4("p", "g3", "f4") |>
+
+  make_move4("Q", "d8", "h4")
+
+
+game_result(g3)
+legalmoves(g3)
+
+chessplot(g3)
 ###
-game <- newgame()
 
-game <- make_move4("p", "f2", "f4")
-game <- make_move4("p", "e7", "e5")
-game <- make_move4("p", "g2", "g3")
-game <- make_move4("p", "e5", "f4")
-game <- make_move4("p", "g3", "f4")
+g4<- newgame() |>
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "c7", "c6") |>
 
-game <- make_move4("Q", "d8", "h4")
+  make_move4("p", "d2", "d4") |>
+  make_move4("p", "d7", "d5") |>
+  make_move4("N", "b1", "c3") |>
+  make_move4("p", "d5", "e4") |>
 
-game_result()
-chessplot()
-###
+  make_move4("N", "c3", "e4") |>
+  make_move4("N", "g8", "f6") |>
 
-game <- newgame()
+  make_move4("Q", "d1", "e2") |>
+  make_move4("N", "b8", "d7") |>
 
-game <- make_move4("p", "e2", "e4")
-game <- make_move4("p", "c7", "c6")
-
-game <- make_move4("p", "d2", "d4")
-game <- make_move4("p", "d7", "d5")
-
-game <- make_move4("N", "b1", "c3")
-game <- make_move4("p", "d5", "e4")
-
-game <- make_move4("N", "c3", "e4")
-game <- make_move4("N", "g8", "f6")
-
-game <- make_move4("Q", "d1", "e2")
-game <- make_move4("N", "b8", "d7")
-
-#game <- make_move4("N", "e4", "f6")
+#  make_move4("N", "e4", "f6")
 #game_result()
 
-game <- make_move4("N", "e4", "d6")
-game_result()
+  make_move4("N", "e4", "d6")
+game_result(g4)
 
-chessplot()
-
-####
-game <- newgame()
-
-game <- make_move4("p", "e2", "e4")
-game <- make_move4("p", "c7", "c6")
-
-game <- make_move4("p", "d2", "d4")
-game <- make_move4("p", "d7", "d5")
-
-game <- make_move4("p", "e4", "e5")
-game <- make_move4("p", "f7", "f5")
-
-all_possibilities()[["w"]][["pw_e5"]] # en passant is an option now
-#game <- make_move4("p", "e5", "f6")
-#chessplot()
-
-game <- make_move4("p", "a2", "a4")
-game <- make_move4("p", "b7", "b5")
-
-all_possibilities()[["w"]][["pw_e5"]] # not anymore
+chessplot(g4)
 
 ####
 
-game <- newgame()
+g5 <- newgame() |>
 
-game <- make_move4("p", "e2", "e4")
-game <- make_move4("p", "e7", "e6")
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "c7", "c6") |>
 
-game <- make_move4("p", "d2", "d4")
-game <- make_move4("p", "d7", "d5")
+  make_move4("p", "d2", "d4") |>
+  make_move4("p", "d7", "d5") |>
 
-game <- make_move4("p", "e4", "e5")
-game <- make_move4("K", "e8", "d7")
+  make_move4("p", "e4", "e5") |>
+  make_move4("p", "f7", "f5")
 
-game <- make_move4("K", "e1", "e2")
-game <- make_move4("N", "b8", "c6")
+all_possibilities(g5)[["w"]][["pw_e5"]] # en passant is an option now
 
-game <- make_move4("K", "e2", "f3")
-game <- make_move4("p", "g7", "g5")
-all_possibilities()[["w"]][["Kw_f3"]]
+make_move4(g5 ,"p", "e5", "f6") |>
+ chessplot()
 
-game <- make_move4("K", "f3", "g4")
-game <- make_move4("p", "h7", "h5")
+make_move4(g5 ,"p", "e5", "f6") |>
+  moves_scoresheet()
 
-all_possibilities()[["w"]][["Kw_g4"]]
-chessplot()
+g6 <- g5 |>
+  make_move4("p", "a2", "a4") |>
+  make_move4("p", "b7", "b5")
+
+all_possibilities(g6)[["w"]][["pw_e5"]] # not anymore
+
+####
+
+g7 <- newgame() |>
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "e7", "e6") |>
+
+  make_move4("p", "d2", "d4") |>
+  make_move4("p", "d7", "d5") |>
+
+  make_move4("p", "e4", "e5") |>
+  make_move4("K", "e8", "d7") |>
+
+  make_move4("K", "e1", "e2") |>
+  make_move4("N", "b8", "c6") |>
+
+  make_move4("K", "e2", "f3") |>
+  make_move4("p", "g7", "g5")
+
+chessplot(g7)
+all_possibilities(g7)[["w"]][["Kw_f3"]]
+
+g7 |>
+  make_move4("K", "f3", "g4") |>
+  make_move4("p", "h7", "h5") |>
+  legalmoves()
+ # chessplot()
 
 ### DOuble check
 
-game <- newgame()
+g8<-   newgame() |>
 
-game<- make_move4("p", "e2", "e4")
-game <- make_move4("p", "e7", "e6")
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "e7", "e6") |>
 
-game<- make_move4("p", "d2", "d4")
-game <- make_move4("p", "d7", "d5")
+  make_move4("p", "d2", "d4") |>
+  make_move4("p", "d7", "d5") |>
 
-game<- make_move4("p", "e4", "d5")
-game <- make_move4("p", "e6", "d5")
+  make_move4("p", "e4", "d5") |>
+  make_move4("p", "e6", "d5") |>
 
-game <- make_move4("B", "c1", "e3")
-game <- make_move4("K", "e8", "e7")
+  make_move4("B", "c1", "e3") |>
+  make_move4("K", "e8", "e7") |>
 
-game <- make_move4("Q", "d1", "e2")
-game<- make_move4("p", "h7", "h6")
+  make_move4("Q", "d1", "e2") |>
+  make_move4("p", "h7", "h6") |>
 
-game <- make_move4("B", "e3", "g5")
+  make_move4("B", "e3", "g5")
 
-all_possibilities()[["b"]]
-chessplot()
+legalmoves(g8)
+chessplot(g8)
+
 # Serve verificare se doppia inchiodatura funziona correttamente (ad es. se inchiodo un alfiere che sta
 # inchiodando il cavallo, rimangono funzionanti le inchiodature? Credo di si ma verifica)
 
 #####
 
-game <- newgame()
+randomgame <- newgame()
 #game <- random_mover()
 n <- 1
 set.seed(382479)
-while (game_result() != 1 & n < 10) {
+while (game_result(randomgame) != 1 & n < 10) {
   n <- n+1
-  game <- random_mover()
+  randomgame <- random_mover(randomgame)
 
-  chessplot()
+  chessplot(randomgame)
 
 }
+
+####
+
+set.seed(231)
+
+newgame() |>
+random_mover()

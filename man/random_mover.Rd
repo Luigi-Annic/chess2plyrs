@@ -4,7 +4,11 @@
 \alias{random_mover}
 \title{random_mover}
 \usage{
-random_mover()
+random_mover(game)
+}
+\arguments{
+\item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
+as created by newgame function)}
 }
 \value{
 game with new move done
