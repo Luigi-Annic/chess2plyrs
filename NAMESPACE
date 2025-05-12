@@ -3,6 +3,7 @@
 export(all_possibilities)
 export(chessplot)
 export(game_result)
+export(get_minimax_move)
 export(legalmoves)
 export(make_move4)
 export(moves_scoresheet)

@@ -302,3 +302,18 @@ set.seed(231)
 
 newgame() |>
 random_mover()
+
+####
+
+gm <- newgame() |>
+  make_move4("p", "d2", "d4") |>
+  make_move4("N", "g8", "h6") |>
+  make_move4("Q", "d1", "d2") |>
+  make_move4("p", "a7", "a5") |>
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "b7", "b5")
+
+
+get_minimax_move(gm, depth = 1)
+get_minimax_move(gm, depth = 2)
+#get_minimax_move(gm, depth = 3)
