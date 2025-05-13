@@ -108,11 +108,22 @@ check_pawn_capture <- function(game, initialposition) {
 pawn_forward <- function(game, m0, initialposition) {
 
   board = game$board
+  turn = game$turn
 
   m1 <- as.character(m0)
   for (tile in m0) {
     if (board[which(chess2plyrs::chesstools$tilenames==tile)] != "") {
       m1 <- m1[! m1 == tile]
+    }
+    if ((substr(initialposition, 2, 2) == "2" & turn == 1) | (substr(initialposition,2, 2) == "7" & turn == -1)) {
+
+      tilebefore = if (substr(initialposition,2, 2) == "2") paste0(substr(initialposition,1, 1), "3") else paste0(substr(initialposition,1, 1), "6")
+
+      if (board[which(chess2plyrs::chesstools$tilenames==tilebefore)] != "") {
+
+        tiletarget = if (substr(initialposition,2, 2) == "2") paste0(substr(initialposition, 1,1), "4") else paste0(substr(initialposition, 1,1), "5")
+        m1 <- m1[! m1 == tiletarget]
+      }
     }
   }
   return(m1)
