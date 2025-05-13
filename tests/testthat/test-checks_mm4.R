@@ -313,7 +313,117 @@ gm <- newgame() |>
   make_move4("p", "e2", "e4") |>
   make_move4("p", "b7", "b5")
 
-
+t0 <- Sys.time()
 get_minimax_move(gm, depth = 1)
-get_minimax_move(gm, depth = 2)
+Sys.time() -t0 # 5 secs
+
+
+#t0 <- Sys.time()
+#get_minimax_move(gm, depth = 2)
+#Sys.time() -t0 # 107 secs
+
+
 #get_minimax_move(gm, depth = 3)
+
+ck <- newgame() |>
+
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "c7", "c6") |>
+
+  make_move4("p", "d2", "d4") |>
+  make_move4("p", "d7", "d5")
+
+t0 <- Sys.time()
+get_minimax_move(ck, depth = 1)
+Sys.time() -t0 # 5 secs
+
+
+#t0 <- Sys.time()
+#get_minimax_move(ck, depth = 2)
+#Sys.time() -t0 # 107 secs
+
+
+#t0 <- Sys.time()
+#get_minimax_move(ck, depth = 3)
+#Sys.time() -t0 # almost 2 hours -> alpha beta pruning needed
+
+
+ck2 <- newgame() |>
+
+  make_move4("p", "e2", "e4") |>
+  make_move4("p", "c7", "c6") |>
+
+  make_move4("p", "d2", "d4") |>
+  make_move4("p", "d7", "d5") |>
+  make_move4("N", "b1", "c3")
+
+get_minimax_move(ck2, depth = 1)
+
+#t0 <- Sys.time()
+#get_minimax_move(ck2, depth = 2)
+#Sys.time() -t0 # 107 secs
+
+
+ck3 <- newgame() |>
+
+  make_move4("N", "b1", "c3") |>
+  make_move4("p", "e7", "e6") |>
+
+  make_move4("p", "f2", "f4")
+
+get_minimax_move(ck2, depth = 1)
+
+
+ck4 <- newgame() |>
+
+  make_move4("N", "b1", "a3") |>
+  make_move4("p", "e7", "e6") |>
+
+  make_move4("p", "f2", "f4") |>
+  make_move4("p", "a7", "a6") |>
+  make_move4("p", "h2", "h3") |>
+  make_move4("p", "h7", "h6") |>
+  make_move4("N", "a3", "b5")
+
+#get_minimax_move(ck4, depth = 1) # "pa6b5"
+#get_minimax_move(ck4, depth = 2) # "pa6b5"
+#get_minimax_move(ck4, depth = 3) # "Qd8h4" at depth 3 the minimax algorithm sees the checkmate
+
+
+########
+
+testgame <- newgame()
+n <- 0
+set.seed(2345) #293847
+while (game_result(testgame) != 1 & n < 40) {
+  n <- n+1
+
+  #testgame <- if (testgame$turn == 1) random_mover(testgame) else engine1(testgame, 1)
+
+  #if (n%%2 == 0)  chessplot(testgame)
+
+}
+
+#moves_scoresheet(testgame)
+
+#####
+
+testgame2 <- newgame()
+n <- 0
+set.seed(43787)
+while (game_result(testgame2) != 1 & n < 40) {
+  n <- n+1
+
+  #testgame2 <- if (testgame2$turn == 1) random_mover(testgame2) else engine1(testgame2, depth = 2)
+
+  #if (n%%2 == 0)  chessplot(testgame2)
+
+}
+
+#moves_scoresheet(testgame2)
+
+ newgame() |>
+  make_move4("N", "g1", "f3") |>
+  make_move4("N", "b8", "c6") |>
+  make_move4("p", "e2", "e3") |>
+  legalmoves()

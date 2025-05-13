@@ -6,7 +6,7 @@
 \alias{chess2plyrs-package}
 \title{chess2plyrs: Chess For 2 Players}
 \description{
-Chess program for playing against a friend. The program checks for legal moves and provides the possibility to plot the board, take back, reand and write FEN, and list all legal moves in the current position. Some chess engines will be (hopefully soon) implemented.
+Chess program for playing against a friend. The program checks for legal moves and provides the possibility to plot the board, take back, read and write FEN, and list all legal moves in the current position. Some simple chess engines are implemented.
 }
 \author{
 \strong{Maintainer}: Luigi Annicchiarico \email{luigi.annic@gmail.com}

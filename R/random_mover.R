@@ -12,7 +12,7 @@
 random_mover <- function(game) {
   chosenone <- sample(legalmoves(game), 1)
 
-  message("Chosen move:")
+  message("Chosen move by random mover:")
   message(chosenone)
 
   make_move4(game,
