@@ -27,8 +27,19 @@ chess_score1 <- function(game) {
   if (length(kingcheck(game, legalmoves = all_possibilities(game))) > 0 & turn == 1) check_score <- -1
   if (length(kingcheck(game, legalmoves = all_possibilities(game))) > 0 & turn == -1) check_score <- 1
 
+  # pawns e, d
+
+  pscore <- sum(currentboard["2", "e"] == "pw", currentboard["2", "d"] == "pw")* -0.25 +
+            sum(currentboard["7", "e"] == "pb", currentboard["7", "d"] == "pb")* 0.25
+
+  # piece development
+  development <- sum(currentboard["1",] %in% c("Nw", "Bw")) * (-0.25) + sum(currentboard["8",] %in% c("Nb", "Bb")) * (+0.25)
+
+  # piece activity
+  activity <- length(legalmoves(game))*0.01 * turn
+
   # Return final position score
-  return(white_score - black_score + check_score)
+  return(white_score - black_score + check_score + pscore + development + activity)
 }
 
 

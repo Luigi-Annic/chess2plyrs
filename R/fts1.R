@@ -160,7 +160,7 @@ defmoves <- function(game, piece, initialposition, turn = 1, msf_chckobs = TRUE)
   if (piece == "K") {
     m0 <- as.character(stats::na.omit(chess2plyrs::chesstools$neigh[, initialposition]))
 
-    if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(game, m0, initialposition) else moves <- m0
+    if (msf_chckobs == TRUE) moves0 <- check_occupied_tile(game, m0, initialposition) else moves0 <- m0
   }
 
   # Knight move

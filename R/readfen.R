@@ -32,6 +32,8 @@ readfen <- function(fenstring) {
   fenfin <- ifelse(fenfin == "", "",
                    ifelse(fenfin %in% letters, paste0(toupper(fenfin), "b"), paste0(toupper(fenfin), "w")))
 
+  fenfin <- gsub("P", "p", fenfin)
+
   currentboard <- matrix(data = fenfin, 8, 8, byrow = T,
                           dimnames = list(c("8", "7", "6", "5", "4", "3", "2", "1"), c(letters[1:8])))
 
