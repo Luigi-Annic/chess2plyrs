@@ -5,11 +5,11 @@ chess_score1 <- function(game) {
 
 
   # Test if black won
-  if (suppressMessages(game_result(game)) ==1 & turn == 1) {
+  if (suppressMessages(game_result(game)) ==1 & turn == 1 & length(kingcheck(game, legalmoves = all_possibilities(game))) > 0) {
     return(-1000)
   }
   # Test if white won
-  if (suppressMessages(game_result(game)) ==1 & turn == -1) {
+  if (suppressMessages(game_result(game)) ==1 & turn == -1 & length(kingcheck(game, legalmoves = all_possibilities(game))) > 0) {
     return(1000)
   }
   # Test if game ended in a draw
@@ -35,11 +35,14 @@ chess_score1 <- function(game) {
   # piece development
   development <- sum(currentboard["1",] %in% c("Nw", "Bw")) * (-0.25) + sum(currentboard["8",] %in% c("Nb", "Bb")) * (+0.25)
 
+  # knight on the rim is dim
+  rimknight <- sum(currentboard[,c("a", "h")] %in% "Nw") * (-0.15) + sum(currentboard[,c("a", "h")] %in% "Nb") * (0.15)
+
   # piece activity
-  activity <- length(legalmoves(game))*0.01 * turn
+  #activity <- length(legalmoves(game))*0.01 * turn
 
   # Return final position score
-  return(white_score - black_score + check_score + pscore + development + activity)
+  return(white_score - black_score + check_score + pscore + development + rimknight) #+activity)
 }
 
 
