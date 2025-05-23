@@ -39,10 +39,10 @@ chess_score1 <- function(game) {
   rimknight <- sum(currentboard[,c("a", "h")] %in% "Nw") * (-0.15) + sum(currentboard[,c("a", "h")] %in% "Nb") * (0.15)
 
   # piece activity
-  #activity <- length(legalmoves(game))*0.01 * turn
+  activity <- length(legalmoves(game))*0.01 * turn
 
   # Return final position score
-  return(white_score - black_score + check_score + pscore + development + rimknight) #+activity)
+  return(white_score - black_score + check_score + pscore + development + rimknight +activity)
 }
 
 

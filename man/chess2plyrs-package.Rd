@@ -4,7 +4,7 @@
 \name{chess2plyrs-package}
 \alias{chess2plyrs}
 \alias{chess2plyrs-package}
-\title{chess2plyrs: Chess For 2 Players}
+\title{chess2plyrs: Chess for 2 Players}
 \description{
 Chess program for playing against a friend. The program checks for legal moves and provides the possibility to plot the board, take back, read and write FEN, and list all legal moves in the current position. Some simple chess engines are implemented.
 }

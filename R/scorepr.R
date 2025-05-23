@@ -17,7 +17,8 @@ minimax_scoring2 <- function(game, depth, alpha, beta) {
 
     for (i in 1:length(next_moves)) {
 
-      print(next_moves[i])
+      #print(paste0(next_moves[i]))
+
 
       piece <- substr(next_moves[i], 1, 1)
       initialposition <-  substr(next_moves[i], 2, 3)
@@ -30,8 +31,10 @@ minimax_scoring2 <- function(game, depth, alpha, beta) {
       best <- max(best, next_move_scores[i])
       alpha <- max(alpha, best)
 
+      print(paste0(next_moves[i], ", alpha: ", alpha, ", best:", best))
+
       if (beta <= alpha) {
-        print ("beta < alpha")
+        print ("beta < alpha, white prunes")
         break
       }
 
@@ -42,7 +45,8 @@ minimax_scoring2 <- function(game, depth, alpha, beta) {
 
       for (i in 1:length(next_moves)) {
 
-        print(next_moves[i])
+        print(paste0(next_moves[i]))
+
 
         piece <- substr(next_moves[i], 1, 1)
         initialposition <-  substr(next_moves[i], 2, 3)
@@ -55,9 +59,11 @@ minimax_scoring2 <- function(game, depth, alpha, beta) {
         best <- min(best, next_move_scores[i])
         beta <- min(beta, best)
 
+        print(paste0(next_moves[i], ", beta: ", beta, ", best:", best))
+
         if (beta <= alpha) {
 
-          print("beta < alpha")
+          print("beta < alpha, black prunes")
           break
 
         }
@@ -85,6 +91,8 @@ minimax_scoring2 <- function(game, depth, alpha, beta) {
     next_moves <- legalmoves(game)
     next_move_scores <- vector(length = length(next_moves))
     for (i in 1:length(next_moves)) {
+
+      print(paste0("-------------", toupper(next_moves[i]), "---------------"))
       piece <- substr(next_moves[i], 1, 1)
       initialposition <-  substr(next_moves[i], 2, 3)
       finalposition <- if (grepl("0-0-0", next_moves[i])) "0-0-0" else if (grepl("0-0", next_moves[i])) "0-0" else substr(next_moves[i], 4, 5)
