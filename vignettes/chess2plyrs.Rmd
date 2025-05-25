@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-chess2plyrs is an Rpackage which allows to create a chess game and add moves, verify the status of the game and list the legal moves, as well as read and write FENs. It is also possible to plot the current board position.
+chess2plyrs is an R package which allows to create a chess game and add moves, verify the status of the game and list legal moves, as well as read and write FENs. It is also possible to plot the current board position. A simple chess engine based on minimax is also implemented.
 
 ```{r setup}
 library(chess2plyrs)
@@ -58,7 +58,7 @@ First, we can plot the current board with the function `chessplot`.
 The `style` option allows for different piece styles:
 
  - `style = 1` is the default option: unicode encoding is used
- - `style = 2` plots pieces with their labels instead of the unicode. As unicode may yield an error on some platforms, in this vignette we use this option
+ - `style = 2` plots pieces with their labels instead of the unicode. As unicode may yield an error on some platforms, here we use this option
 
 ```{r, fig.width=5, fig.height=5, fig.retina=3, fig.align='center'}
 chessplot(g2, style = 2)
@@ -128,7 +128,7 @@ You can verify that with depth equal to 3 the engine indeed selects that has the
 
 Known potential issues and future improvements:
 
-1) pawn promotion is automatically to Queen at the moment. In a future release, autopromotion will be removed
+1) pawn promotion is automatically to Queen at the moment. In a future release, auto-promotion will be removed
 2) in some cases related to checks with pawns, potential legal en passant moves might be not detected as legal. This may happen in an extremely rare number of cases, but will be nonetheless fixed soon
 3) FEN are only considering the first two elements (position and turn), ignoring castle information. This will also be fixed soon
 4) Draw by three-fold repetition is currently not recognised
