@@ -13,7 +13,7 @@ chess2plyrs is an Rpackage which allows to create a chess game and add moves, ve
 library(chess2plyrs)
 ```
 
-A new game can be created with the newgame() function:
+A new game can be created with the `newgame` function:
 
 
 ```{r}
@@ -23,12 +23,12 @@ g1
 
 We can see that the object we create is a lists which contains
 
-- board: the current position
-- turn: 1 if it is white's turn, -1 if it is black's turn
-- history: the previous moves played (in a primitive style)
-- fen_history: the FEN representation of the previous moves
+- `board`: the current position
+- `turn`: 1 if it is white's turn, -1 if it is black's turn
+- `history`: the previous moves played (in a primitive style)
+- `fen_history`: the FEN representation of the previous moves
 
-We can add one move using the chess_move function:
+We can add one move using the `chess_move` function:
 
 ```{r}
 chess_move(game = g1,
@@ -40,36 +40,34 @@ chess_move(game = g1,
 
 We can also make use of the pipe operator for a soother insertion of the moves:
 
-
 ```{r}
 g2 <- newgame() |>
-  chess_move("p", "e2", "e4") |>
-  chess_move("p", "e7", "e5") |>
-  chess_move("N", "g1", "f3") |>
-  chess_move("N", "b8", "c6") |>
-  chess_move("B", "f1", "b5") |>
-  chess_move("N", "g8", "f6") |>
+  chess_move("p", "e2", "e4")  |>
+  chess_move("p", "e7", "e5")  |>
+  chess_move("N", "g1", "f3")  |>
+  chess_move("N", "b8", "c6")  |>
+  chess_move("B", "f1", "b5")  |>
+  chess_move("N", "g8", "f6")  |>
   chess_move("K", "e1", "0-0") |>
   chess_move("N", "f6", "e4") 
 ```
 
 ### Chess plotting
 
-First, we can plot the current board with the function chessplot():
+First, we can plot the current board with the function `chessplot`. 
+The `style` option allows for different piece styles:
 
-```{r, fig.width=5, fig.height=5, fig.retina=3}
-chessplot(g2, style = 1)
-```
- 
-The style option allows to plot pieces with their labels instead of the unicode:
+ - `style = 1` is the default option: unicode encoding is used
+ - `style = 2` plots pieces with their labels instead of the unicode. As unicode may yield an error on some platforms, in this vignette we use this option
 
-```{r}
+```{r, fig.width=5, fig.height=5, fig.retina=3, fig.align='center'}
 chessplot(g2, style = 2)
 ```
+ 
 
 ### Score list
 
-We can get the moves list in scientific notation using the moves_scoresheet function
+We can get the moves list in scientific notation using the `moves_scoresheet` function
 
 ```{r}
 moves_scoresheet(g2)
@@ -77,10 +75,62 @@ moves_scoresheet(g2)
 
 ### Game result
 
-The functin game_result tells whether the game is still ongoing or if there is a checkmate or stalemate. Note that up to now threefold repetition is not implemented as a recognised draw situation yet.
+The function `game_result` tells whether the game is still ongoing or if there is a checkmate or stalemate. Note that up to now threefold repetition is not implemented as a recognised draw situation yet.
 
 ```{r}
 game_result(g2)
 ```
 
 We can see that in the current position there are still legal moves, hence the game is not finished.
+
+### legal moves
+
+All legal moves in a given position can be listed using the function `legalmoves`
+
+```{r}
+legalmoves(g2)
+```
+
+
+# Engine
+
+Along with a simple random mover engine, a slightly more sophisticated engine which uses minimax and alpha-beta pruning is present in this package. 
+For more information have a look at https://www.r-bloggers.com/2022/07/programming-a-simple-minimax-chess-engine-in-r/
+
+We can set a simple position and see the move chosen by each engine with different depths:
+
+```{r, fig.width=5, fig.height=5, fig.retina=3, fig.align='center'}
+ck4 <- newgame() |>
+
+  chess_move("N", "b1", "a3") |>
+  chess_move("p", "e7", "e6") |>
+
+  chess_move("p", "f2", "f4") |>
+  chess_move("p", "a7", "a6") |>
+  chess_move("p", "h2", "h3") |>
+  chess_move("p", "h7", "h6") |>
+  chess_move("N", "a3", "b5")
+
+chessplot(ck4, style = 2)
+```
+
+You can see that black is to move and has a mate starting with Qh4+ (g3, Qxg3#).
+You can verify that with depth equal to 3 the engine indeed selects that has the move of choice, while at lower depth it prefers to take the Knight in b5
+
+```{r}
+#engine2(ck4, 1) # "pa6b5" is the chosen move
+#engine2(ck4, 2) # "pa6b5" is the chosen move
+#engine2(ck4, 3) # "Qd8h4" is the chosen move
+```
+
+
+# Appendix
+
+Known potential issues and future improvements:
+
+1) pawn promotion is automatically to Queen at the moment. In a future release, autopromotion will be removed
+2) in some cases related to checks with pawns, potential legal en passant moves might be not detected as legal. This may happen in an extremely rare number of cases, but will be nonetheless fixed soon
+3) FEN are only considering the first two elements (position and turn), ignoring castle information. This will also be fixed soon
+4) Draw by three-fold repetition is currently not recognised
+
+In case you find any additional bugs or if you have any suggestion, feel free to post relevant information to GitHub!
