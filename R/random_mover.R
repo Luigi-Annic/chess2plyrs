@@ -15,7 +15,7 @@ random_mover <- function(game) {
   message("Chosen move by random mover:")
   message(chosenone)
 
-  make_move4(game,
+  chess_move(game,
              piece = substr(chosenone, 1, 1),
              initialposition =  substr(chosenone, 2, 3),
              finalposition =  substr(chosenone, 4, 5))

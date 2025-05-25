@@ -20,5 +20,5 @@ as created by newgame function)}
 fen
 }
 \description{
-writes fen
+write fen
 }

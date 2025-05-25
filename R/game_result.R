@@ -1,6 +1,7 @@
 #' @title game_result
 #'
-#' @description # game ending check
+#' @description This function tells if the game is still ongoing,
+#' or if a checkamte or stalemate are on the board
 #'
 #' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
 #'              as created by newgame function)

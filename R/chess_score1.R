@@ -1,5 +1,12 @@
+# NOT EXPORTED (see pruned version)
+# COntains all functions for the minimax engine (without pruning):
+# - scoring function
+# - minimax evaluation
+# - get_minimax function
+# - engine function
+
 # Position evaluation function
-chess_score1 <- function(game) {
+chess_score0 <- function(game) {
   currentboard = game$board
   turn = game$turn
 
@@ -39,10 +46,10 @@ chess_score1 <- function(game) {
   rimknight <- sum(currentboard[,c("a", "h")] %in% "Nw") * (-0.15) + sum(currentboard[,c("a", "h")] %in% "Nb") * (0.15)
 
   # piece activity
-  activity <- length(legalmoves(game))*0.01 * turn
+  #activity <- length(legalmoves(game))*0.01 * turn
 
   # Return final position score
-  return(white_score - black_score + check_score + pscore + development + rimknight +activity)
+  return(white_score - black_score + check_score + pscore + development + rimknight)
 }
 
 
@@ -55,7 +62,7 @@ minimax_scoring <- function(game, depth) {
   # If the game is already over or the depth limit is reached
   # then return the heuristic evaluation of the position
   if (depth == 0 | suppressMessages(game_result(game)) ==1) {
-    return(chess_score1(game))
+    return(chess_score0(game))
   }
 
   # Run the minimax scoring recursively on every legal next move, making sure the search depth is not exceeded
@@ -67,7 +74,7 @@ minimax_scoring <- function(game, depth) {
     initialposition <-  substr(next_moves[i], 2, 3)
     finalposition <- if (grepl("0-0-0", next_moves[i])) "0-0-0" else if (grepl("0-0", next_moves[i])) "0-0" else substr(next_moves[i], 4, 5)
 
-    game2 <- make_move4(game, piece, initialposition, finalposition)
+    game2 <- chess_move(game, piece, initialposition, finalposition)
 
     next_move_scores[i] <- minimax_scoring(game2, depth - 1)
 
@@ -85,32 +92,71 @@ minimax_scoring <- function(game, depth) {
 
 ########
 
-# Select the next move based on the minimax scoring
-#get_minimax_move <- function(game, depth) {
-#  turn = game$turn
+
+#' @title get_minimax_move
+#'
+#' @description minimax engine
+#'
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
+#' @param depth algorithm depth
+#'
+#' @return minimax engine
+#'
+
+get_minimax_move <- function(game, depth) {
+  turn = game$turn
 
   # Score all next moves via minimax
-#  next_moves <- legalmoves(game)
-#  next_move_scores <- vector(length = length(next_moves))
-#  for (i in 1:length(next_moves)) {
-#    piece <- substr(next_moves[i], 1, 1)
-#    initialposition <-  substr(next_moves[i], 2, 3)
-#    finalposition <- if (grepl("0-0-0", next_moves[i])) "0-0-0" else if (grepl("0-0", next_moves[i])) "0-0" else substr(next_moves[i], 4, 5)
+  next_moves <- legalmoves(game)
+  next_move_scores <- vector(length = length(next_moves))
+  for (i in 1:length(next_moves)) {
+    piece <- substr(next_moves[i], 1, 1)
+    initialposition <-  substr(next_moves[i], 2, 3)
+    finalposition <- if (grepl("0-0-0", next_moves[i])) "0-0-0" else if (grepl("0-0", next_moves[i])) "0-0" else substr(next_moves[i], 4, 5)
 
-#    game2 <- make_move4(game, piece, initialposition, finalposition)
+    game2 <- chess_move(game, piece, initialposition, finalposition)
 
-#    next_move_scores[i] <- minimax_scoring(game2, depth - 1)
+    next_move_scores[i] <- minimax_scoring(game2, depth - 1)
 
     #game <- takeback(game)
-#  }
+  }
 
   # For white return the move with maximum score
   # For black return the move with minimum score
   # If the optimal score is achieved by multiple moves, select one at random
 
-#  if (turn == 1) {
-#    return(sample(next_moves[which(next_move_scores == max(next_move_scores))], size = 1))
-#  } else {
-#    return(sample(next_moves[which(next_move_scores == min(next_move_scores))], size = 1))
-#  }
-#}
+  if (turn == 1) {
+    return(sample(next_moves[which(next_move_scores == max(next_move_scores))], size = 1))
+  } else {
+    return(sample(next_moves[which(next_move_scores == min(next_move_scores))], size = 1))
+  }
+}
+
+##########
+
+#' @title engine1
+#'
+#' @description engine which chooses minimax between legal moves
+#'
+#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#'              as created by newgame function)
+#' @param depth depth of the minimax. depth of 1 and 2 are fairly rapid.
+#'
+#' @return game with new move done
+#'
+
+engine1 <- function(game, depth) {
+
+  chosenone <- get_minimax_move(game, depth = depth)
+
+  message("Chosen move by minimax mover:")
+  message(chosenone)
+
+  piece <- substr(chosenone, 1, 1)
+  initialposition <-  substr(chosenone, 2, 3)
+  finalposition <- if (grepl("0-0-0", chosenone)) "0-0-0" else if (grepl("0-0", chosenone)) "0-0" else substr(chosenone, 4, 5)
+
+
+  chess_move(game, piece, initialposition, finalposition)
+}

@@ -4,172 +4,172 @@ newgame() |>
   legalmoves()
 
 newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "d7", "d5") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "d7", "d5") |>
   legalmoves()
 
 newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "d7", "d5") |>
-  make_move4("p", "e4", "d5")
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "d7", "d5") |>
+  chess_move("p", "e4", "d5")
 
 newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "d7", "d5") |>
-  make_move4("p", "e4", "d5") |>
-  make_move4("p", "c7", "c6") |>
-  make_move4("p", "d5", "c6") |>
-  make_move4("N", "g8", "f6") |>
-  make_move4("p", "c6", "b7") |>
-  make_move4("N", "b8", "c6") |>
-  make_move4("p", "b7", "c8") |>
-  make_move4("R", "a8", "c8") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "d7", "d5") |>
+  chess_move("p", "e4", "d5") |>
+  chess_move("p", "c7", "c6") |>
+  chess_move("p", "d5", "c6") |>
+  chess_move("N", "g8", "f6") |>
+  chess_move("p", "c6", "b7") |>
+  chess_move("N", "b8", "c6") |>
+  chess_move("p", "b7", "c8") |>
+  chess_move("R", "a8", "c8") |>
 
 
-  make_move4("B", "f1", "b5") |>
-  make_move4("Q", "d8", "d5") |>
+  chess_move("B", "f1", "b5") |>
+  chess_move("Q", "d8", "d5") |>
 
-  make_move4("B", "b5", "c6") |>
-  make_move4("R", "c8", "c6") |>
+  chess_move("B", "b5", "c6") |>
+  chess_move("R", "c8", "c6") |>
 
-  make_move4("N", "g1", "f3") |>
-  make_move4("Q", "d5", "b5") |>
+  chess_move("N", "g1", "f3") |>
+  chess_move("Q", "d5", "b5") |>
   #chessplot()
   #all_possibilities() #[["w"]][["Kw_e1"]] # The program spots that the "K" has no legal moves!
-  make_move4("p", "d2", "d3") |>
-  make_move4("Q", "b5", "b4") |>
+  chess_move("p", "d2", "d3") |>
+  chess_move("Q", "b5", "b4") |>
 
 #all_possibilities()[["w"]]
 
-  make_move4("p", "c2", "c3") |>
-  make_move4("Q", "b4", "e4") |>
+  chess_move("p", "c2", "c3") |>
+  chess_move("Q", "b4", "e4") |>
 
-  make_move4("p", "d3", "e4") |>
-  make_move4("p", "g7", "g6") |>
+  chess_move("p", "d3", "e4") |>
+  chess_move("p", "g7", "g6") |>
 
 #all_possibilities()[["w"]][["Kw_e1"]] # Now short castle is available! :)
-  make_move4("K", "e1", "0-0") |>
+  chess_move("K", "e1", "0-0") |>
   #chessplot()
   moves_scoresheet()
 ###
 
 
 newgame() |>
-make_move4("p", "e2", "e4") |>
-make_move4("p", "a7", "a6") |>
-make_move4("p", "d2", "d4") |>
-make_move4("p", "e7", "e6") |>
-make_move4("p", "f2", "f4") |>
-make_move4("p", "d7", "d5") |>
-make_move4("B", "f1", "b5") |>
+chess_move("p", "e2", "e4") |>
+chess_move("p", "a7", "a6") |>
+chess_move("p", "d2", "d4") |>
+chess_move("p", "e7", "e6") |>
+chess_move("p", "f2", "f4") |>
+chess_move("p", "d7", "d5") |>
+chess_move("B", "f1", "b5") |>
   legalmoves()
 
 g4 <- newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "a7", "a6") |>
-  make_move4("p", "h2", "h3") |>
-  make_move4("p", "e7", "e6") |>
-  make_move4("p", "f2", "f4") |>
-  make_move4("p", "d7", "d5") |>
-  make_move4("B", "f1", "b5") |>
-  make_move4("B", "c8", "d7") |>
-  make_move4("N", "g1", "f3") |>
-  make_move4("B", "d7", "b5") |>
-  make_move4("p", "d2", "d3") |>
-  make_move4("N", "b8", "c6") |>
-  make_move4("K", "e1","0-0")
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "a7", "a6") |>
+  chess_move("p", "h2", "h3") |>
+  chess_move("p", "e7", "e6") |>
+  chess_move("p", "f2", "f4") |>
+  chess_move("p", "d7", "d5") |>
+  chess_move("B", "f1", "b5") |>
+  chess_move("B", "c8", "d7") |>
+  chess_move("N", "g1", "f3") |>
+  chess_move("B", "d7", "b5") |>
+  chess_move("p", "d2", "d3") |>
+  chess_move("N", "b8", "c6") |>
+  chess_move("K", "e1","0-0")
 
 g4 |>
-  make_move4("Q", "d8", "d7") |>
-  make_move4("N", "b1", "c3") |>
-  make_move4("K", "e8","0-0-0")  |>
+  chess_move("Q", "d8", "d7") |>
+  chess_move("N", "b1", "c3") |>
+  chess_move("K", "e8","0-0-0")  |>
   chessplot(style = 2)
 
-make_move4(g4, "Q", "d8", "d7") # alternative without pipes
+chess_move(g4, "Q", "d8", "d7") # alternative without pipes
 ###
 
 g <- newgame() |>
-   make_move4("p", "e2", "e4") |>
-   make_move4("p", "e7", "e6") |>
-   make_move4("p", "d2", "d4") |>
-   make_move4("p", "d7", "d5") |>
-   make_move4("p", "e4", "d5") |>
-   make_move4("p", "e6", "d5") |>
+   chess_move("p", "e2", "e4") |>
+   chess_move("p", "e7", "e6") |>
+   chess_move("p", "d2", "d4") |>
+   chess_move("p", "d7", "d5") |>
+   chess_move("p", "e4", "d5") |>
+   chess_move("p", "e6", "d5") |>
 
-   make_move4("N", "g1", "f3") |>
-   make_move4("N", "g8", "f6") |>
+   chess_move("N", "g1", "f3") |>
+   chess_move("N", "g8", "f6") |>
 
-   make_move4("B", "f1", "b5") |>
-   make_move4("N", "b8", "c6") |>
+   chess_move("B", "f1", "b5") |>
+   chess_move("N", "b8", "c6") |>
 
-   make_move4("K", "e1" ,"0-0") |>
-   make_move4("p", "a7" ,"a6") |>
+   chess_move("K", "e1" ,"0-0") |>
+   chess_move("p", "a7" ,"a6") |>
 
-   make_move4("R", "f1", "e1") |>
-   make_move4("Q", "d8", "e7") |>
+   chess_move("R", "f1", "e1") |>
+   chess_move("Q", "d8", "e7") |>
 
-   make_move4("p", "h2", "h3")
+   chess_move("p", "h2", "h3")
 
 all_possibilities(g)[["b"]] # Le inchiodature funzionano: il cavallo in c6 non ha caselle e la donna ha solo quelle sulla linea della torre
 
 chessplot(g, style = 2)
 
 g |>
-  make_move4("Q", "e7", "e4") |>
-  make_move4("p", "h3", "h4") |>
+  chess_move("Q", "e7", "e4") |>
+  chess_move("p", "h3", "h4") |>
   legalmoves()  # FUnziona anche all'indietro, bene
 
 
 ###
 
 newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "d7", "d5") |>
-  make_move4("B", "f1", "b5") |>
-  #make_move4("B", "c8", "f5") # The program spots that this move is not valid!! Yuppi
-  make_move4("N", "b8", "c6") |>
-  make_move4("Q", "d1", "e2") |>
-  #make_move4("N", "c6", "e5") # The program spots that this move is not valid!! Yuppi
-  make_move4("p", "e7", "e6") |>
-  make_move4("p", "e4", "d5") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "d7", "d5") |>
+  chess_move("B", "f1", "b5") |>
+  #chess_move("B", "c8", "f5") # The program spots that this move is not valid!! Yuppi
+  chess_move("N", "b8", "c6") |>
+  chess_move("Q", "d1", "e2") |>
+  #chess_move("N", "c6", "e5") # The program spots that this move is not valid!! Yuppi
+  chess_move("p", "e7", "e6") |>
+  chess_move("p", "e4", "d5") |>
   chessplot(style = 2)
 
 ####
 
 g2 <- newgame() |>
 
-   make_move4("p", "e2", "e4") |>
-   make_move4("p", "c7", "c6") |>
+   chess_move("p", "e2", "e4") |>
+   chess_move("p", "c7", "c6") |>
 
-   make_move4("p", "d2", "d4") |>
-   make_move4("p", "d7", "d5") |>
+   chess_move("p", "d2", "d4") |>
+   chess_move("p", "d7", "d5") |>
 
-   make_move4("N", "b1", "c3") |>
-   make_move4("p", "d5", "e4") |>
+   chess_move("N", "b1", "c3") |>
+   chess_move("p", "d5", "e4") |>
 
-   make_move4("N", "c3", "e4") |>
-   make_move4("N", "g8", "f6") |>
+   chess_move("N", "c3", "e4") |>
+   chess_move("N", "g8", "f6") |>
 
-   make_move4("N", "e4", "f6")
+   chess_move("N", "e4", "f6")
 
 legalmoves(g2)
 
- make_move4(g2, "Q", "d8", "c7") # Invalid!
- make_move4(g2, "K", "e8", "d7") # Invalid!
+ chess_move(g2, "Q", "d8", "c7") # Invalid!
+ chess_move(g2, "K", "e8", "d7") # Invalid!
 
- make_move4(g2, "p", "e7", "f6") |>
+ chess_move(g2, "p", "e7", "f6") |>
    chessplot(style = 2)
 
  ###
 g3 <- newgame() |>
 
-  make_move4("p", "f2", "f4") |>
-  make_move4("p", "e7", "e5") |>
-  make_move4("p", "g2", "g3") |>
-  make_move4("p", "e5", "f4") |>
-  make_move4("p", "g3", "f4") |>
+  chess_move("p", "f2", "f4") |>
+  chess_move("p", "e7", "e5") |>
+  chess_move("p", "g2", "g3") |>
+  chess_move("p", "e5", "f4") |>
+  chess_move("p", "g3", "f4") |>
 
-  make_move4("Q", "d8", "h4")
+  chess_move("Q", "d8", "h4")
 
 
 game_result(g3)
@@ -179,24 +179,24 @@ chessplot(g3, style = 2)
 ###
 
 g4<- newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "c7", "c6") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "c7", "c6") |>
 
-  make_move4("p", "d2", "d4") |>
-  make_move4("p", "d7", "d5") |>
-  make_move4("N", "b1", "c3") |>
-  make_move4("p", "d5", "e4") |>
+  chess_move("p", "d2", "d4") |>
+  chess_move("p", "d7", "d5") |>
+  chess_move("N", "b1", "c3") |>
+  chess_move("p", "d5", "e4") |>
 
-  make_move4("N", "c3", "e4") |>
-  make_move4("N", "g8", "f6") |>
+  chess_move("N", "c3", "e4") |>
+  chess_move("N", "g8", "f6") |>
 
-  make_move4("Q", "d1", "e2") |>
-  make_move4("N", "b8", "d7") |>
+  chess_move("Q", "d1", "e2") |>
+  chess_move("N", "b8", "d7") |>
 
-#  make_move4("N", "e4", "f6")
+#  chess_move("N", "e4", "f6")
 #game_result()
 
-  make_move4("N", "e4", "d6")
+  chess_move("N", "e4", "d6")
 game_result(g4)
 
 chessplot(g4, style = 2)
@@ -205,53 +205,53 @@ chessplot(g4, style = 2)
 
 g5 <- newgame() |>
 
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "c7", "c6") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "c7", "c6") |>
 
-  make_move4("p", "d2", "d4") |>
-  make_move4("p", "d7", "d5") |>
+  chess_move("p", "d2", "d4") |>
+  chess_move("p", "d7", "d5") |>
 
-  make_move4("p", "e4", "e5") |>
-  make_move4("p", "f7", "f5")
+  chess_move("p", "e4", "e5") |>
+  chess_move("p", "f7", "f5")
 
 all_possibilities(g5)[["w"]][["pw_e5"]] # en passant is an option now
 
-make_move4(g5 ,"p", "e5", "f6") |>
+chess_move(g5 ,"p", "e5", "f6") |>
  chessplot(style = 2)
 
-make_move4(g5 ,"p", "e5", "f6") |>
+chess_move(g5 ,"p", "e5", "f6") |>
   moves_scoresheet()
 
 g6 <- g5 |>
-  make_move4("p", "a2", "a4") |>
-  make_move4("p", "b7", "b5")
+  chess_move("p", "a2", "a4") |>
+  chess_move("p", "b7", "b5")
 
 all_possibilities(g6)[["w"]][["pw_e5"]] # not anymore
 
 ####
 
 g7 <- newgame() |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "e7", "e6") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "e7", "e6") |>
 
-  make_move4("p", "d2", "d4") |>
-  make_move4("p", "d7", "d5") |>
+  chess_move("p", "d2", "d4") |>
+  chess_move("p", "d7", "d5") |>
 
-  make_move4("p", "e4", "e5") |>
-  make_move4("K", "e8", "d7") |>
+  chess_move("p", "e4", "e5") |>
+  chess_move("K", "e8", "d7") |>
 
-  make_move4("K", "e1", "e2") |>
-  make_move4("N", "b8", "c6") |>
+  chess_move("K", "e1", "e2") |>
+  chess_move("N", "b8", "c6") |>
 
-  make_move4("K", "e2", "f3") |>
-  make_move4("p", "g7", "g5")
+  chess_move("K", "e2", "f3") |>
+  chess_move("p", "g7", "g5")
 
 chessplot(g7, style = 2)
 all_possibilities(g7)[["w"]][["Kw_f3"]]
 
 g7 |>
-  make_move4("K", "f3", "g4") |>
-  make_move4("p", "h7", "h5") |>
+  chess_move("K", "f3", "g4") |>
+  chess_move("p", "h7", "h5") |>
   legalmoves()
  # chessplot()
 
@@ -259,22 +259,22 @@ g7 |>
 
 g8<-   newgame() |>
 
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "e7", "e6") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "e7", "e6") |>
 
-  make_move4("p", "d2", "d4") |>
-  make_move4("p", "d7", "d5") |>
+  chess_move("p", "d2", "d4") |>
+  chess_move("p", "d7", "d5") |>
 
-  make_move4("p", "e4", "d5") |>
-  make_move4("p", "e6", "d5") |>
+  chess_move("p", "e4", "d5") |>
+  chess_move("p", "e6", "d5") |>
 
-  make_move4("B", "c1", "e3") |>
-  make_move4("K", "e8", "e7") |>
+  chess_move("B", "c1", "e3") |>
+  chess_move("K", "e8", "e7") |>
 
-  make_move4("Q", "d1", "e2") |>
-  make_move4("p", "h7", "h6") |>
+  chess_move("Q", "d1", "e2") |>
+  chess_move("p", "h7", "h6") |>
 
-  make_move4("B", "e3", "g5")
+  chess_move("B", "e3", "g5")
 
 legalmoves(g8)
 chessplot(g8, style = 2)
@@ -306,12 +306,12 @@ random_mover()
 ####
 
 gm <- newgame() |>
-  make_move4("p", "d2", "d4") |>
-  make_move4("N", "g8", "h6") |>
-  make_move4("Q", "d1", "d2") |>
-  make_move4("p", "a7", "a5") |>
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "b7", "b5")
+  chess_move("p", "d2", "d4") |>
+  chess_move("N", "g8", "h6") |>
+  chess_move("Q", "d1", "d2") |>
+  chess_move("p", "a7", "a5") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "b7", "b5")
 
 t0 <- Sys.time()
 get_minimax_move(gm, depth = 1)
@@ -327,11 +327,11 @@ Sys.time() -t0 # 5 secs
 
 ck <- newgame() |>
 
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "c7", "c6") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "c7", "c6") |>
 
-  make_move4("p", "d2", "d4") |>
-  make_move4("p", "d7", "d5")
+  chess_move("p", "d2", "d4") |>
+  chess_move("p", "d7", "d5")
 
 t0 <- Sys.time()
 get_minimax_move(ck, depth = 1)
@@ -350,12 +350,12 @@ Sys.time() -t0 # 5 secs
 
 ck2 <- newgame() |>
 
-  make_move4("p", "e2", "e4") |>
-  make_move4("p", "c7", "c6") |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "c7", "c6") |>
 
-  make_move4("p", "d2", "d4") |>
-  make_move4("p", "d7", "d5") |>
-  make_move4("N", "b1", "c3")
+  chess_move("p", "d2", "d4") |>
+  chess_move("p", "d7", "d5") |>
+  chess_move("N", "b1", "c3")
 
 get_minimax_move(ck2, depth = 1)
 
@@ -366,24 +366,24 @@ get_minimax_move(ck2, depth = 1)
 
 ck3 <- newgame() |>
 
-  make_move4("N", "b1", "c3") |>
-  make_move4("p", "e7", "e6") |>
+  chess_move("N", "b1", "c3") |>
+  chess_move("p", "e7", "e6") |>
 
-  make_move4("p", "f2", "f4")
+  chess_move("p", "f2", "f4")
 
 get_minimax_move(ck2, depth = 1)
 
 
 ck4 <- newgame() |>
 
-  make_move4("N", "b1", "a3") |>
-  make_move4("p", "e7", "e6") |>
+  chess_move("N", "b1", "a3") |>
+  chess_move("p", "e7", "e6") |>
 
-  make_move4("p", "f2", "f4") |>
-  make_move4("p", "a7", "a6") |>
-  make_move4("p", "h2", "h3") |>
-  make_move4("p", "h7", "h6") |>
-  make_move4("N", "a3", "b5")
+  chess_move("p", "f2", "f4") |>
+  chess_move("p", "a7", "a6") |>
+  chess_move("p", "h2", "h3") |>
+  chess_move("p", "h7", "h6") |>
+  chess_move("N", "a3", "b5")
 
 #get_minimax_move(ck4, depth = 1) # "pa6b5"
 #get_minimax_move(ck4, depth = 2) # "pa6b5"
@@ -423,7 +423,7 @@ while (game_result(testgame2) != 1 & n < 40) {
 #moves_scoresheet(testgame2)
 
  newgame() |>
-  make_move4("N", "g1", "f3") |>
-  make_move4("N", "b8", "c6") |>
-  make_move4("p", "e2", "e3") |>
+  chess_move("N", "g1", "f3") |>
+  chess_move("N", "b8", "c6") |>
+  chess_move("p", "e2", "e3") |>
   legalmoves()

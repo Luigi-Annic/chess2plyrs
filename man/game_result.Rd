@@ -14,5 +14,6 @@ as created by newgame function)}
 a message
 }
 \description{
-# game ending check
+This function tells if the game is still ongoing,
+or if a checkamte or stalemate are on the board
 }

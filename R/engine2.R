@@ -22,6 +22,6 @@ engine2 <- function(game, depth) {
   finalposition <- if (grepl("0-0-0", chosenone)) "0-0-0" else if (grepl("0-0", chosenone)) "0-0" else substr(chosenone, 4, 5)
 
 
-  make_move4(game, piece, initialposition, finalposition)
+  chess_move(game, piece, initialposition, finalposition)
 }
 

@@ -1,0 +1,86 @@
+---
+title: "chess2plyrs"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{chess2plyrs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+chess2plyrs is an Rpackage which allows to create a chess game and add moves, verify the status of the game and list the legal moves, as well as read and write FENs. It is also possible to plot the current board position.
+
+```{r setup}
+library(chess2plyrs)
+```
+
+A new game can be created with the newgame() function:
+
+
+```{r}
+g1 <- newgame()
+g1
+```
+
+We can see that the object we create is a lists which contains
+
+- board: the current position
+- turn: 1 if it is white's turn, -1 if it is black's turn
+- history: the previous moves played (in a primitive style)
+- fen_history: the FEN representation of the previous moves
+
+We can add one move using the chess_move function:
+
+```{r}
+chess_move(game = g1,
+            piece = "p",
+            initialposition = "e2",
+            finalposition = "e4")
+
+```
+
+We can also make use of the pipe operator for a soother insertion of the moves:
+
+
+```{r}
+g2 <- newgame() |>
+  chess_move("p", "e2", "e4") |>
+  chess_move("p", "e7", "e5") |>
+  chess_move("N", "g1", "f3") |>
+  chess_move("N", "b8", "c6") |>
+  chess_move("B", "f1", "b5") |>
+  chess_move("N", "g8", "f6") |>
+  chess_move("K", "e1", "0-0") |>
+  chess_move("N", "f6", "e4") 
+```
+
+### Chess plotting
+
+First, we can plot the current board with the function chessplot():
+
+```{r, fig.width=5, fig.height=5, fig.retina=3}
+chessplot(g2, style = 1)
+```
+ 
+The style option allows to plot pieces with their labels instead of the unicode:
+
+```{r}
+chessplot(g2, style = 2)
+```
+
+### Score list
+
+We can get the moves list in scientific notation using the moves_scoresheet function
+
+```{r}
+moves_scoresheet(g2)
+```
+
+### Game result
+
+The functin game_result tells whether the game is still ongoing or if there is a checkmate or stalemate. Note that up to now threefold repetition is not implemented as a recognised draw situation yet.
+
+```{r}
+game_result(g2)
+```
+
+We can see that in the current position there are still legal moves, hence the game is not finished.

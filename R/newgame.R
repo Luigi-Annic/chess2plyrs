@@ -1,6 +1,6 @@
 #' @title newgame
 #'
-#' @description sets up a new game
+#' @description sets up a new chess game
 #'
 #' @return new game
 #' @export

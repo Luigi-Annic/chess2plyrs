@@ -1,10 +1,10 @@
 #' @title chessplot
 #'
-#' @description chess plot
+#' @description plots the current position
 #'
 #' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
 #'             as created by newgame function)
-#' @param style font style (1 or 2)
+#' @param style font style. 1: chess pieces according to unicode; 2: chess labels
 #'
 #' @return plot
 #' @export

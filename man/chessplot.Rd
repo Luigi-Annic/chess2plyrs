@@ -10,11 +10,11 @@ chessplot(game, style = 1)
 \item{game}{chess game object (i.e., a list with elements board, turn, history, and fen_history
 as created by newgame function)}
 
-\item{style}{font style (1 or 2)}
+\item{style}{font style. 1: chess pieces according to unicode; 2: chess labels}
 }
 \value{
 plot
 }
 \description{
-chess plot
+plots the current position
 }

@@ -14,10 +14,6 @@ as created by newgame function)}
 all chess possibilities
 }
 \description{
-finds all legal moves
-}
-\examples{
-newgame() |>
-all_possibilities()
-
+finds all legal moves for the player moving, and all the squares under attack
+             from the opponent pieces.
 }

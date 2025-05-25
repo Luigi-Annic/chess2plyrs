@@ -10,5 +10,5 @@ newgame()
 new game
 }
 \description{
-sets up a new game
+sets up a new chess game
 }

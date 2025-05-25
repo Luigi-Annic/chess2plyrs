@@ -1,19 +1,23 @@
-#' @title make_move4
+#' @title chess_move
 #'
-#' @description makes move
+#' @description Takes in input a move, evaluates whether it is legal,
+#'             and if it is, then the game is updated
 #'
 #' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
 #'              as created by newgame function)
-#' @param piece piece to be moved
+#' @param piece letter indicating the piece to be moved (p, N, B, R, Q, K)
 #' @param initialposition initial square of the piece
-#' @param finalposition final square
+#' @param finalposition destination square
 #'
 #' @return makes move
 #' @export
 #'
+#' @examples
+#' newgame() |>
+#' chess_move("N", "g1", "f3")
+#'
 
-
-make_move4 <- function(game, piece, initialposition = "", finalposition = "") {
+chess_move <- function(game, piece, initialposition = "", finalposition = "") {
 
   currentboard = game$board
   turn = game$turn
