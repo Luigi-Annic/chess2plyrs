@@ -13,7 +13,7 @@ chess2plyrs is an R package which allows to create a chess game and add moves, v
 library(chess2plyrs)
 ```
 
-# Initialise a game
+## Initialise a game
 
 A new game can be created with the `newgame` function:
 
@@ -30,7 +30,12 @@ We can see that the object we create is a lists which contains
 - `history`: the previous moves played (in a primitive style)
 - `fen_history`: the FEN representation of the previous moves
 
-We can add one move using the `chess_move` function:
+We can add one move using the `chess_move` function, which takes in input:
+
+- the game being played
+- the piece label (p for pawns, N for knights, B for bishops, R for rooks, Q for queens, K for kings)
+- the initial square of the piece to be moved
+- the final square
 
 ```{r}
 chess_move(game = g1,
@@ -40,7 +45,7 @@ chess_move(game = g1,
 
 ```
 
-We can also make use of the pipe operator for a soother insertion of the moves:
+We can also make use of the pipe operator for a smoother insertion of the moves:
 
 ```{r}
 g2 <- newgame() |>
@@ -53,6 +58,14 @@ g2 <- newgame() |>
   chess_move("K", "e1", "0-0") |>
   chess_move("N", "f6", "e4") 
 ```
+
+If we try to add an illegal move, a note tells us that the move is not legal and the action is not performed:
+
+```{r}
+x <- newgame() |>
+  chess_move("p", "e2", "d5") # illegal move
+```
+
 
 ### Chess plotting
 
@@ -128,7 +141,7 @@ chessplot(ck4, style = 2)
 ```
 
 You can see that black is to move and has a mate starting with Qh4+ (g3, Qxg3#).
-You can verify that with depth equal to 3 the engine indeed selects that has the move of choice, while at lower depth it prefers to take the Knight in b5
+You can verify that with depth equal to 3 the engine indeed selects that as the move of choice, while at lower depth it prefers to take the Knight in b5.
 
 ```{r}
 #engine2(ck4, 1) # "pa6b5" is the chosen move (5 seconds needed)
