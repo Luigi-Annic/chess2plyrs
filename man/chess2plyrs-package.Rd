@@ -4,9 +4,9 @@
 \name{chess2plyrs-package}
 \alias{chess2plyrs}
 \alias{chess2plyrs-package}
-\title{chess2plyrs: Chess for 2 Players}
+\title{chess2plyrs: Chess Game and Tools in R}
 \description{
-Chess program for playing against a friend. The program checks for legal moves and provides the possibility to plot the board, take back, read and write FEN, and list all legal moves in the current position. Some simple chess engines are implemented.
+Chess package written in base R. The program allows the user to create a game, add moves, check for legal moves and game result, plot the board, take back, read and write FEN. A basic chess engine are implemented.
 }
 \author{
 \strong{Maintainer}: Luigi Annicchiarico \email{luigi.annic@gmail.com}
