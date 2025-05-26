@@ -13,6 +13,8 @@ chess2plyrs is an R package which allows to create a chess game and add moves, v
 library(chess2plyrs)
 ```
 
+# Initialise a game
+
 A new game can be created with the `newgame` function:
 
 
@@ -75,7 +77,7 @@ moves_scoresheet(g2)
 
 ### Game result
 
-The function `game_result` tells whether the game is still ongoing or if there is a checkmate or stalemate. Note that up to now threefold repetition is not implemented as a recognised draw situation yet.
+The function `game_result` tells whether the game is still ongoing or if there is a checkmate or stalemate.
 
 ```{r}
 game_result(g2)
@@ -83,7 +85,7 @@ game_result(g2)
 
 We can see that in the current position there are still legal moves, hence the game is not finished.
 
-### legal moves
+### Legal moves
 
 All legal moves in a given position can be listed using the function `legalmoves`
 
@@ -92,10 +94,21 @@ legalmoves(g2)
 ```
 
 
+### Takeback
+
+The function `takeback` allows to remove the last move played. It can also be used sequentially.
+
+```{r}
+takeback(g2)
+```
+
 # Engine
 
-Along with a simple random mover engine, a slightly more sophisticated engine which uses minimax and alpha-beta pruning is present in this package. 
-For more information have a look at https://www.r-bloggers.com/2022/07/programming-a-simple-minimax-chess-engine-in-r/
+Along with a simple random mover engine, which can be called using the function `random_mover`, a slightly more sophisticated engine which uses minimax and alpha-beta pruning is present in this package. 
+For more information have a look at
+
+- https://en.wikipedia.org/wiki/Minimax
+- https://www.r-bloggers.com/2022/07/programming-a-simple-minimax-chess-engine-in-r/
 
 We can set a simple position and see the move chosen by each engine with different depths:
 
@@ -118,19 +131,10 @@ You can see that black is to move and has a mate starting with Qh4+ (g3, Qxg3#).
 You can verify that with depth equal to 3 the engine indeed selects that has the move of choice, while at lower depth it prefers to take the Knight in b5
 
 ```{r}
-#engine2(ck4, 1) # "pa6b5" is the chosen move
-#engine2(ck4, 2) # "pa6b5" is the chosen move
-#engine2(ck4, 3) # "Qd8h4" is the chosen move
+#engine2(ck4, 1) # "pa6b5" is the chosen move (5 seconds needed)
+#engine2(ck4, 2) # "pa6b5" is the chosen move (2/3 minutes needed)
+#engine2(ck4, 3) # "Qd8h4" is the chosen move (it takes some minutes to find it)
 ```
 
 
-# Appendix
 
-Known potential issues and future improvements:
-
-1) pawn promotion is automatically to Queen at the moment. In a future release, auto-promotion will be removed
-2) in some cases related to checks with pawns, potential legal en passant moves might be not detected as legal. This may happen in an extremely rare number of cases, but will be nonetheless fixed soon
-3) FEN are only considering the first two elements (position and turn), ignoring castle information. This will also be fixed soon
-4) Draw by three-fold repetition is currently not recognised
-
-In case you find any additional bugs or if you have any suggestion, feel free to post relevant information to GitHub!

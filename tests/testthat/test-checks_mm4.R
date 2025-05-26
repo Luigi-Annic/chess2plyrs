@@ -427,3 +427,15 @@ while (game_result(testgame2) != 1 & n < 40) {
   chess_move("N", "b8", "c6") |>
   chess_move("p", "e2", "e3") |>
   legalmoves()
+
+ #####
+
+ g9 <- newgame() |>
+   chess_move("N", "g1", "f3") |>
+   chess_move("N", "g8", "f6") |>
+   chess_move("N", "f3", "g1") |>
+   chess_move("N", "f6", "g8") |>
+   chess_move("N", "g1", "f3") |>
+   chess_move("N", "g8", "f6") |>
+   chess_move("N", "f3", "g1") |>
+   chess_move("N", "f6", "g8")

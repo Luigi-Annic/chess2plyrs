@@ -30,6 +30,10 @@ game_result <- function(game) {
       game_ended <- 1
       message("Stalemate! Draw")
     }
+  } else if (max(table(game$fen_history))>= 3) {
+    game_ended <- 1
+    message("Threefold repetition! Draw")
+
   } else {
     game_ended <- 0
     message("There are still legal moves available, the game is ongoing")
