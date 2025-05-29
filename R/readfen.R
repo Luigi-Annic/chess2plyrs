@@ -1,6 +1,6 @@
 #' @title readfen
 #'
-#' @description reads fen
+#' @description read fen (Forsyth–Edwards Notation) notation
 #'
 #' @param fenstring fen string (pieces and turn)
 #'

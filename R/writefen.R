@@ -1,6 +1,6 @@
 #' @title writefen
 #'
-#' @description write fen
+#' @description write fen (Forsyth–Edwards Notation) notation
 #'
 #' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
 #'              as created by newgame function)

@@ -20,5 +20,5 @@ as created by newgame function)}
 fen
 }
 \description{
-write fen
+write fen (Forsyth–Edwards Notation) notation
 }

@@ -4,9 +4,9 @@
 \name{chess2plyrs-package}
 \alias{chess2plyrs}
 \alias{chess2plyrs-package}
-\title{chess2plyrs: Chess Game and Tools in R}
+\title{chess2plyrs: Chess Game Creation and Tools}
 \description{
-Chess package written in base R. The program allows the user to create a game, add moves, check for legal moves and game result, plot the board, take back, read and write FEN. A basic chess engine are implemented.
+A chess program which allows the user to create a game, add moves, check for legal moves and game result, plot the board, take back, read and write FEN (Forsyth–Edwards Notation). A basic chess engine based on minimax is implemented.
 }
 \author{
 \strong{Maintainer}: Luigi Annicchiarico \email{luigi.annic@gmail.com}
