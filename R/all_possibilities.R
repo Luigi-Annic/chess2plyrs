@@ -1,13 +1,13 @@
-#' @title all_possibilities
-#'
-#' @description finds all legal moves for the player moving, and all the squares under attack
-#'              from the opponent pieces.
-#'
-#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
-#'              as created by newgame function)
-#'
-#' @return all chess possibilities
-#'
+# title all_possibilities
+#
+# description finds all legal moves for the player moving, and all the squares under attack
+#              from the opponent pieces.
+#
+# param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#              as created by newgame function)
+#
+# return all chess possibilities
+#
 
 all_possibilities <- function(game) {
 

@@ -93,16 +93,16 @@ minimax_scoring <- function(game, depth) {
 ########
 
 
-#' @title get_minimax_move
-#'
-#' @description minimax engine
-#'
-#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
-#'              as created by newgame function)
-#' @param depth algorithm depth
-#'
-#' @return minimax engine
-#'
+#title get_minimax_move
+#
+# description minimax engine
+#
+# param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#              as created by newgame function)
+# param depth algorithm depth
+#
+# return minimax engine
+#
 
 get_minimax_move <- function(game, depth) {
   turn = game$turn
@@ -135,16 +135,16 @@ get_minimax_move <- function(game, depth) {
 
 ##########
 
-#' @title engine1
+# title engine1
 #'
-#' @description engine which chooses minimax between legal moves
-#'
-#' @param game chess game object (i.e., a list with elements board, turn, history, and fen_history
-#'              as created by newgame function)
-#' @param depth depth of the minimax. depth of 1 and 2 are fairly rapid.
-#'
-#' @return game with new move done
-#'
+# description engine which chooses minimax between legal moves
+#
+# param game chess game object (i.e., a list with elements board, turn, history, and fen_history
+#              as created by newgame function)
+# param depth depth of the minimax. depth of 1 and 2 are fairly rapid.
+#
+# return game with new move done
+#
 
 engine1 <- function(game, depth) {
 
